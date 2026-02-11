@@ -1,1 +1,82 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Color (Logo Blue) */
+    --color-primary: 0 123 255; /* #007BFF - Brighter Blue */
+    --color-primary-dark: 0 84 145; /* #005491 - Keep Dark Blue for contrast */
+    --color-primary-light: 102 177 255; /* Lighter shade */
+
+    /* Secondary Color (Deep Charcoal / Slate) */
+    --color-secondary: 15 23 42; /* #0F172A */
+
+    /* Background Light (Warm Ivory) */
+    --color-background-light: 252 251 247; /* #FCFBF7 */
+
+    /* Background Dark */
+    --color-background-dark: 3 7 18;
+
+    /* Accent Orange (Logo Orange) */
+    --color-accent-orange: 232 131 58; /* #E8833A */
+    --color-accent-tan: 231 224 213; 
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #0067b1 0%, #005491 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #e8833a 0%, #c66a2a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .timeline-capsule::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #0067b133;
+  }
+
+  .timeline-capsule:last-child::after {
+    display: none;
+  }
+
+  .hero-pattern {
+    background-image: radial-gradient(#0067b1 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+    opacity: 0.1;
+  }
+
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-5px);
+  }
+}

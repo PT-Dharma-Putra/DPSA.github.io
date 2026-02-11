@@ -1,0 +1,162 @@
+<section id="about" class="py-24 bg-background-light overflow-hidden relative">
+  <!-- Decorative Elements -->
+  <div
+    class="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-primary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"
+  >
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class="relative group">
+        <div
+          class="absolute -inset-4 bg-primary/10 rounded-2xl blur-2xl group-hover:bg-primary/20 transition-all duration-700"
+        >
+        </div>
+        <div
+          class="relative z-10 bg-slate-100 aspect-[3/2] sm:aspect-video lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl mx-auto max-w-2xl lg:max-w-none"
+        >
+          <img
+            src="/images/project/KAMORA LIVING/WhatsAppImage2024-01-20at08.15.31-9sND6oY6UFRpM93VpvKYSg.jpeg"
+            alt="Dharma Putra Sejahtera Abadi Workshop"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+          >
+          </div>
+        </div>
+
+        <!-- Experience Badge -->
+        <div
+          class="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 bg-white/90 backdrop-blur-md p-5 md:p-8 shadow-2xl rounded-2xl z-20 max-w-[150px] md:max-w-[200px] border border-primary/20 transform hover:-translate-y-2 transition-transform duration-300"
+        >
+          <div class="flex flex-col">
+            <span
+              class="text-gradient-accent text-3xl md:text-5xl font-display font-bold mb-1"
+              >30+</span
+            >
+            <span
+              class="text-[0.6rem] font-bold text-slate-400 uppercase tracking-[0.2em] leading-tight"
+              >Years of Masterful Craftsmanship</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <div
+          class="inline-block self-start mb-6 px-4 py-1 rounded-full bg-accent-orange/10 text-accent-orange text-[0.7rem] font-bold uppercase tracking-[0.2em]"
+        >
+          Our Heritage
+        </div>
+
+        <h2
+          class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-secondary mb-10 leading-[1.15]"
+        >
+          Discovering <br />
+          <span class="text-gradient-primary italic"
+            >Dharma Putra Sejahtera Abadi</span
+          >
+        </h2>
+
+        <div
+          class="space-y-8 text-slate-500 leading-relaxed text-lg font-light"
+        >
+          <p>
+            Established in <span class="text-secondary font-semibold">1994</span
+            >, Dharma Putra Sejahtera Abadi has evolved from a dedicated
+            workshop into a premier leader in the interior design and
+            construction industry.
+          </p>
+          <p>
+            With three decades of experience, we have mastered the art of
+            creating spaces that perfectly balance <span
+              class="italic text-primary">functionality</span
+            > and <span class="italic text-primary">aesthetic elegance</span>.
+            Our legacy is built on a foundation of precision, reliability, and
+            an unwavering commitment to quality.
+          </p>
+        </div>
+
+        <div
+          class="mt-12 p-8 rounded-2xl bg-white border border-primary/10 shadow-sm relative overflow-hidden group"
+        >
+          <div
+            class="absolute top-0 left-0 w-1 h-full bg-primary transition-all duration-500 group-hover:w-2"
+          >
+          </div>
+          <h3
+            class="font-display text-2xl font-bold text-secondary mb-4 italic"
+          >
+            Our Vision
+          </h3>
+          <p class="text-slate-600 leading-relaxed italic">
+            "To be a leading force in furniture and interior design, delivering
+            innovation and quality to craft spaces that inspire comfort and
+            timeless elegance."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import {
+    getWatermarkedDataUrl,
+    preloadWatermark,
+    watermarkedCache,
+  } from "../utils/watermark.js";
+
+  function initAboutWatermark() {
+    const img = document.querySelector("#about img");
+
+    if (!img || !(img instanceof HTMLImageElement)) return;
+
+    const originalSrc = img.src;
+    let isWatermarked = false;
+
+    if (originalSrc && !originalSrc.startsWith("data:")) {
+      preloadWatermark(originalSrc);
+    }
+
+    img.addEventListener("mousedown", async (e) => {
+      if (e.button !== 2) return;
+      if (isWatermarked || img.src.startsWith("data:")) return;
+
+      try {
+        if (watermarkedCache.has(originalSrc)) {
+          img.src = watermarkedCache.get(originalSrc);
+          isWatermarked = true;
+        } else {
+          const watermarkedSrc = await getWatermarkedDataUrl(originalSrc);
+          img.src = watermarkedSrc;
+          isWatermarked = true;
+        }
+
+        setTimeout(() => {
+          if (isWatermarked && !img.matches(":hover")) {
+            img.src = originalSrc;
+            isWatermarked = false;
+          }
+        }, 3000);
+      } catch (err) {
+        console.error("Gagal menyiapkan watermark:", err);
+      }
+    });
+
+    img.addEventListener("mouseleave", () => {
+      if (isWatermarked) {
+        img.src = originalSrc;
+        isWatermarked = false;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initAboutWatermark);
+  document.addEventListener("astro:page-load", initAboutWatermark);
+</script>

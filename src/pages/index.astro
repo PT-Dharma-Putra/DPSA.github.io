@@ -1,25 +1,31 @@
 ---
-import '../styles/global.css';
-// Component Imports
-import Button from '../components/Button.astro';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import CompanyVideo from "../components/CompanyVideo.astro";
+import VisionMission from "../components/VisionMission.astro";
+import ProductShowcase from "../components/ProductShowcase.astro";
+import TrustReason from "../components/TrustReason.astro";
+import WorkProcess from "../components/WorkProcess.astro";
+import TrustFeatures from "../components/TrustFeatures.astro";
+import Subsidiaries from "../components/Subsidiaries.astro";
+import Client from "../components/Client.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
-
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
-	</body>
-</html>
+<Layout title="Dharma Putra Sejahtera Abadi | Interior Design & Build">
+  <Navbar />
+  <main>
+    <Hero />
+    <About />
+    <Subsidiaries />
+    <CompanyVideo />
+    <!-- VisionMission is integrated into About now -->
+    <WorkProcess />
+    <ProductShowcase />
+    <!-- Renamed conceptually to Projects -->
+    <Client />
+  </main>
+  <Footer />
+</Layout>

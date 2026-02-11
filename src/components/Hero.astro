@@ -1,0 +1,177 @@
+<section
+  id="home"
+  class="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden px-6 py-20"
+>
+  <div class="absolute inset-0 z-0">
+    <img
+      alt="Luxury Interior Dharma Putra Sejahtera Abadi"
+      class="w-full h-full object-cover scale-105 animate-slow-zoom"
+      src="/images/project/ASTON KEMAYORAN/268169465 (2).jpg"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background-light/10 pointer-events-none"
+    >
+    </div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-5xl text-center text-white">
+    <div
+      class="inline-block mb-6 px-4 py-1.5 rounded-full border border-accent-orange/30 bg-accent-orange/10 backdrop-blur-sm animate-fade-in"
+    >
+      <span
+        class="text-[0.7rem] md:text-xs font-bold uppercase tracking-[0.3em] text-accent-orange"
+        >Established 1994</span
+      >
+    </div>
+
+    <h1
+      class="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight leading-[1.1] animate-fade-in-up"
+    >
+      Dharma <br />
+      <span class="text-gradient-primary italic">Putra Sejahtera Abadi</span>
+    </h1>
+
+    <p
+      class="text-lg md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto font-light tracking-wide leading-relaxed animate-fade-in-up delay-200"
+    >
+      Crafting extraordinary environments through <span
+        class="text-white font-medium">30 years</span
+      > of precision design and masterful build expertise.
+    </p>
+
+    <div
+      class="flex flex-col sm:flex-row gap-5 justify-center items-center animate-fade-in-up delay-500"
+    >
+      <a
+        href="#projects"
+        class="group relative overflow-hidden bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 tracking-[0.15em] uppercase text-[0.7rem]"
+      >
+        <span class="relative z-10">Explore Portfolio</span>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+        >
+        </div>
+      </a>
+      <a
+        href="https://wa.me/6281127005688"
+        class="bg-accent-orange hover:bg-accent-orange/90 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 shadow-xl shadow-accent-orange/20 hover:shadow-accent-orange/40 transform hover:-translate-y-1 active:scale-95 tracking-[0.15em] uppercase text-[0.7rem]"
+      >
+        Start a Project
+      </a>
+    </div>
+  </div>
+
+  <div
+    class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-bounce opacity-50"
+  >
+    <span class="material-icons-outlined text-white text-3xl">expand_more</span>
+  </div>
+</section>
+
+<style>
+  @keyframes slow-zoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-slow-zoom {
+    animation: slow-zoom 20s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 1.5s ease-out forwards;
+  }
+
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+</style>
+
+<script>
+  import {
+    getWatermarkedDataUrl,
+    preloadWatermark,
+    watermarkedCache,
+  } from "../utils/watermark.js";
+
+  function initHeroWatermark() {
+    const img = document.querySelector("#home img");
+
+    if (!img || !(img instanceof HTMLImageElement)) return;
+
+    const originalSrc = img.src;
+    let isWatermarked = false;
+
+    if (originalSrc && !originalSrc.startsWith("data:")) {
+      preloadWatermark(originalSrc);
+    }
+
+    img.addEventListener("contextmenu", async (e) => {
+      if (isWatermarked || img.src.startsWith("data:")) return;
+
+      try {
+        if (watermarkedCache.has(originalSrc)) {
+          img.src = watermarkedCache.get(originalSrc);
+          isWatermarked = true;
+        } else {
+          const watermarkedSrc = await getWatermarkedDataUrl(originalSrc);
+          img.src = watermarkedSrc;
+          isWatermarked = true;
+        }
+
+        // Return to original after menu might have closed or after some time
+        setTimeout(() => {
+          if (isWatermarked) {
+            img.src = originalSrc;
+            isWatermarked = false;
+          }
+        }, 5000);
+      } catch (err) {
+        console.error("Gagal menyiapkan watermark:", err);
+      }
+    });
+
+    img.addEventListener("mouseleave", () => {
+      if (isWatermarked) {
+        img.src = originalSrc;
+        isWatermarked = false;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initHeroWatermark);
+  document.addEventListener("astro:page-load", initHeroWatermark);
+</script>

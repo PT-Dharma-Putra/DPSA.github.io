@@ -1,0 +1,833 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import fs from "node:fs";
+import path from "node:path";
+
+export async function getStaticPaths() {
+  const projects = [
+    {
+      title: "Luminor Hotel Purwokerto",
+      category: "Hospitality",
+      description: `The interior features a modern thematic concept:
+                    - Rooms with playful and unique ocean murals.
+                    - A lounge with a warm, urban vintage feel.
+                    - Double-bed bedrooms with a minimalist, elegant, and artistic style.
+
+                    The combination of thematic murals, striking colors, and modern furniture creates a comfortable, stylish, and distinctive space, ideal for hotels and apartments that want to offer a unique stay experience.`,
+      image: "/images/project/LUMINOR PURWOKERTO/luminor-hotel-1 (1).jpg",
+      slug: "luminor-hotel-purwokerto",
+      folderName: "LUMINOR PURWOKERTO",
+      details: {
+        client: "Luminor Hotel",
+        location: "Purwokerto, Jawa Tengah",
+        year: "2019",
+        service: "Interior Design & Build",
+      },
+    },
+    {
+      title: "Aston Kemayoran",
+      category: "Hospitality",
+      description: `The interior showcases a contemporary and refined hospitality design:
+      •	Guest rooms designed with clean lines, neutral tones, and functional layouts.
+      •	Elegant furnishings combined with warm wood accents and soft lighting.
+      •	A welcoming reception area featuring a modern counter, marble finishes, and subtle architectural details.
+      Overall, the design emphasizes comfort, efficiency, and modern elegance, creating a calm and professional atmosphere well-suited for hotels that prioritize quality, functionality, and a refined guest experience.
+      `,
+      image: "",
+      slug: "aston-kemayoran",
+      folderName: "ASTON KEMAYORAN",
+      details: {
+        client: "Aston Hotels",
+        location: "Jakarta",
+        year: "2019",
+        service: "Furniture",
+      },
+    },
+    {
+      title: "Biznet",
+      category: "Corporate",
+      description: `The interior showcases a sophisticated modern-contemporary design with a warm, professional atmosphere:
+      •	Conference Room: A spacious, well-lit meeting area featuring a sleek wooden table, ergonomic leather seating, and integrated ambient cove lighting.
+      •	Aesthetic Accents: Custom light-oak cabinetry and fluted wood wall panels that seamlessly blend storage with decorative display space.
+      •	Functional Elegance: High-end finishes including marble-patterned flooring, minimalist refreshment stations, and clean, neutral-toned restrooms.
+      The harmony of natural wood textures, refined marble, and strategic lighting creates a prestigious and welcoming environment, perfectly suited for corporate offices or executive suites aiming for a balance of luxury and functionality.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200",
+      slug: "biznet",
+      folderName: "BIZNET",
+      details: {
+        client: "Biznet Networks",
+        location: "Yogyakarta & Jawa Timur",
+        year: "2022",
+        service: "Furniture",
+      },
+    },
+    {
+      title: "Eatery Kopi TM",
+      category: "F&B",
+      description: `The interior design features a retro-modern fusion concept, delivering a warm and character-filled ambiance:
+      •	Contemporary Classic Feel: A blend of warm wood elements, ethnic-patterned tiling, and decorative lighting that creates a cozy, homestyle atmosphere.
+      •	Dynamic Open Spaces: Spacious dining areas with diverse seating options—ranging from relaxed rattan chairs to elegant tufted booths—complemented by abundant natural light.
+      •	Iconic & Artistic Decor: Vintage-style wall typography and contemporary art accents provide unique visual touches that serve as a striking focal point.
+      The harmony of functional furniture, character-driven decorative elements, and strategic lighting creates an aesthetic culinary experience, ideal for restaurants looking to highlight cultural identity within a modern framework.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200",
+      slug: "eatery-kopi-tm",
+      folderName: "ESTERN KOPI TM",
+      details: {
+        client: "Kopi TM",
+        location: "Taman Mini, Jakarta",
+        year: "-",
+        service: "-",
+      },
+    },
+    {
+      title: "Hamori Subang",
+      category: "Healthcare",
+      description: `The interior features a Modern Healthcare Hospitality concept:
+      •	Prestigious Lobby: A grand entrance with high ceilings, elegant marble flooring, and contemporary ring chandeliers.
+      •	Healing Spaces: Patient suites and waiting areas with a "homey" feel, featuring ergonomic furniture and warm wood accents.
+      •	Clinical Aesthetics: Clean, functional zones integrated with premium materials and soothing ambient lighting.
+      This blend of modern design and high-quality finishes creates a tranquil and exclusive healing environment.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1200",
+      slug: "hamori-subang",
+      folderName: "HAMORI SUBANG",
+      details: {
+        client: "Hamori Hospital",
+        location: "Subang",
+        year: "2022",
+        service: "Furniture Pintu",
+      },
+    },
+    {
+      title: "Hasna Medika",
+      category: "Healthcare",
+      description: `We are incredibly proud to unveil the completed interior design project at Hasna Medika Hospital, where thoughtful design seamlessly integrates with healing spaces. This remarkable facility is crafted to be more than just a hospital. It represents a sanctuary where comfort, care, and functionality converge to create an environment that nurtures both patients and staff. Every element has been meticulously designed to enhance the healing experience and promote well-being, making Hasna Medika Hospital a truly exceptional place for recovery and support.`,
+      image:
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200",
+      slug: "hasna-medika",
+      folderName: "HASNA MEDIKA",
+      details: {
+        client: "Hasna Medika",
+        location: "Various Locations",
+        year: "2024",
+        service: "Furniture",
+      },
+    },
+    {
+      title: "Hermina International IKN Hospital",
+      category: "Healthcare",
+      description: `Blending aesthetics with purpose, our hospital interiors are more than just spaces — they are thoughtfully designed environments that promote healing, comfort, and dignity at every step of the patient journey. From calming color palettes to intuitive layouts, every detail is curated to support well-being, inspire trust, and elevate the standard of care. Because in healthcare, design isn’t just about beauty — it’s about building a better experience for patients, families, and caregivers alike.`,
+      image:
+        "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=1200",
+      slug: "hermina-ikn",
+      folderName: "HERMINA IKN",
+      details: {
+        client: "Hermina Hospitals",
+        location: "IKN (Nusantara)",
+        year: "2023-2025",
+        service: "Furniture",
+      },
+    },
+    {
+      title: "Hermina International PIK 2 Hospital",
+      category: "Healthcare",
+      description: `The interior of Hermina International PIK 2 Hospital has been meticulously designed with a modern, clean, and hospitality-oriented concept in mind. Every aspect of the interior layout aims to promote comfort and well-being. The harmonious blend of neutral colors, warm wood accents, inviting warm lighting, and contemporary furniture works together to create an environment that is not only elegant but also calming. This thoughtful design helps to foster a soothing atmosphere, ensuring that patients and their families can feel more at ease during their time in the hospital. The combination of these elements effectively enhances the overall experience, allowing everyone to feel more relaxed and cared for as they navigate their healthcare journey. `,
+      image:
+        "https://images.unsplash.com/photo-1538108197017-c1a966b95df3?auto=format&fit=crop&q=80&w=1200",
+      slug: "hermina-pik-2",
+      folderName: "hermina pik",
+      details: {
+        client: "Hermina Hospitals",
+        location: "PIK 2, Tangerang",
+        year: "2024",
+        service: "Interior & Furniture",
+      },
+    },
+    {
+      title: "Kamora Living",
+      category: "Hospitality",
+      description: `The rooms at Kammora Living are designed with a focus on the warmth of natural materials and contemporary aesthetics. The wooden kitchen set, with its striking grain texture, gives the kitchen and dining area a strong character, complemented by rattan pendant lights that reinforce the tropical feel.
+      The living room combines wooden ceiling panels, large abstract paintings, and minimalist-style furniture that remains comfortable, creating a relaxed yet elegant atmosphere. Every element, from the coffee table to the bar stools, is carefully selected for a harmonious design unity.
+      The bathroom exudes exclusivity with a combination of natural stone, a matte black shower, and a solid stone sink designed not only for functionality but also artistic appeal—offering a relaxing experience with a tropical-modern aesthetic that seamlessly blends together.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1618221195710-dd6b41fa9c2e?auto=format&fit=crop&q=80&w=1200",
+      slug: "kamora-living",
+      folderName: "KAMORA LIVING",
+      details: {
+        client: "Private Owner",
+        location: "Bali",
+        year: "2024",
+        service: "Furniture",
+      },
+    },
+    {
+      title: "Kemenkes IKN",
+      category: "Government",
+      description: `The interior features a Modern State-of-the-Art Office concept:
+      •	Executive Meeting Hub: A spacious, high-tech conference room featuring a minimalist wooden table and premium ergonomic chairs.
+      •	Institutional Aesthetics: Features custom oak cabinetry, fluted wood wall panels, and a grand marble-patterned floor for a prestigious look.
+      •	Efficient Service Areas: Includes a clean, streamlined refreshment station and modern restrooms with high-end finishes and warm lighting.
+      The combination of sustainable wood textures and marble elements creates a professional and visionary environment, reflecting the future-ready standards of IKN.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200",
+      slug: "kemenkes-ikn",
+      folderName: "KEMENKES IKN",
+      details: {
+        client: "Ministry of Health",
+        location: "IKN (Nusantara)",
+        year: "2024",
+        service: "Interior & Furniture",
+      },
+    },
+    {
+      title: "Residential House",
+      category: "Residential",
+      description: `Modern Home Interior Design – Elegance Meets Comfort
+      The interior design applied in this residence adopts a modern and minimalist concept, while highlighting the natural warmth of wood and carefully selected furniture. Each space is meticulously designed, not only to provide aesthetic appeal but also to ensure functionality and comfort in everyday life.
+      In the living room area, a soft color palette blends harmoniously with contemporary sofas and round tables, creating a warm atmosphere for gathering with family or relaxing. Decorative accents and warm lighting further enhance the elegance of the space, making it stylish and inviting.
+      The open kitchen and dining area emphasize practicality with multifunctional furniture seamlessly placed under the stairs. Clean lines, natural textures, and efficient storage solutions give this area a modern yet warm character, making the space feel spacious and well-organized.
+      `,
+      image:
+        "https://dharmaputrainterior.co.id/images/576/21766698/IMG-20250206-WA0005-HMNycmUlrWesBjZTAht8mA-u2dP-DBbcVyDBqK4eePGbA.jpg",
+      slug: "private-luxury-residence",
+      folderName: "Residential",
+      details: {
+        client: "Residential House",
+        location: "Bali",
+        year: "-",
+        service: "-",
+      },
+    },
+    {
+      title: "Mataram Jogja",
+      category: "Hospitality",
+      description: `The interior features a Modern Urban Elegance concept:
+      •	Executive Meeting Spaces: A formal, spacious conference room equipped with a large wooden table and premium ergonomic seating.
+      •	Premium Finishes: Features custom light-oak cabinetry, fluted wall panels, and luxurious white marble flooring.
+      •	Elegant Functionality: Includes a minimalist refreshment station and clean, modern restrooms with natural wood accents.
+      The blend of warm wood and marble creates a prestigious and professional environment, ideal for exclusive corporate offices.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1200",
+      slug: "mataram-jogja",
+      folderName: "MATARAM JOGJA",
+      details: {
+        client: "Mataram Hotel",
+        location: "Yogjakarta",
+        year: "-",
+        service: "-",
+      },
+    },
+    {
+      title: "Panti Rapih",
+      category: "Healthcare",
+      description: `The interior features a Modern Healthcare Hospitality concept:
+      •	Executive Meeting Spaces: A formal, spacious conference room with a large wooden table and premium ergonomic seating.
+      •	Premium Finishes: Features custom light-oak cabinetry, fluted wall panels, and luxurious marble flooring.
+      •	Elegant Functionality: Includes a minimalist refreshment station and clean, modern restrooms with natural wood accents.
+      The blend of warm wood and marble creates a prestigious and professional environment, ideal for exclusive corporate offices or healthcare facilities.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=1200",
+      slug: "panti-rapih",
+      folderName: "PANTI RAPIH",
+      details: {
+        client: "RS Panti Rapih",
+        location: "Yogjakarta",
+        year: "2024",
+        service: "Furniture R. Boromeus & Renovasi R. Hemodialisa",
+      },
+    },
+    {
+      title: "Patraland Amarta",
+      category: "Residential",
+      description: `The interior features a Modern Urban Elegance concept:
+      •	Executive Meeting Spaces: A formal conference room with a large wooden table and premium ergonomic seating.
+      •	Premium Finishes: Built-in oak cabinetry and fluted wall panels paired with elegant marble flooring.
+      •	Sleek Functionality: Minimalist refreshment stations and modern, clean restroom facilities.
+      The blend of warm wood and marble creates a prestigious and professional environment, perfect for high-end corporate offices.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1200",
+      slug: "patraland-amarta",
+      folderName: "PATRALAND AMARTA",
+      details: {
+        client: "Patraland",
+        location: "Yogjakarta",
+        year: "2023",
+        service: "Furniture",
+      },
+    },
+    {
+      title: "Punika Deli",
+      category: "F&B",
+      description: `More than just a space — it's an experience.
+          We are proud to present the interior of Punika Deli, where design, function, and atmosphere come together perfectly. Carefully selected materials and custom furniture are designed to provide comfort and a strong visual identity for commercial spaces.`,
+      image:
+        "https://images.unsplash.com/photo-1559925393-8be0ec41b500?auto=format&fit=crop&q=80&w=1200",
+      slug: "punika-deli",
+      folderName: "PUNIKA DELI",
+      details: {
+        client: "Royal Ambarukmo Group",
+        location: "Yogjakarta",
+        year: "2016",
+        service: "Loose Funiture",
+      },
+    },
+    {
+      title: "Royal Ambarukmo",
+      category: "Corporate",
+      description: `The interior features a Modern Urban Elegance concept:
+      •	Executive Meeting Spaces: A formal, spacious conference room with a large wooden table and premium ergonomic seating.
+      •	Premium Finishes: Features custom light-oak cabinetry, fluted wall panels, and luxurious marble flooring.
+      •	Elegant Functionality: Includes a minimalist refreshment station and clean, modern restrooms with natural wood accents.
+      The blend of warm wood and marble creates a prestigious and professional environment, ideal for exclusive corporate offices.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1541336032412-2048a678540d?auto=format&fit=crop&q=80&w=1200",
+      slug: "royal-ambarukmo",
+      folderName: "ROYAL AMBARUKMO",
+      details: {
+        client: "Royal Ambarukmo",
+        location: "Yogjakarta",
+        year: "-",
+        service: "-",
+      },
+    },
+    {
+      title: "Hermina Banyumanik Hospital",
+      category: "Healthcare",
+      description: `The interior features a clean and modern Healthcare design:
+      •	Efficient Layouts: Patient rooms and waiting areas designed for optimal flow and comfort.
+      •	Soothing Environments: Uses neutral color palettes and warm accents to reduce patient anxiety.
+      •	High Standards: Integrated medical-grade materials with hospitality-level aesthetics for a premium care experience.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200",
+      slug: "hermina-banyumanik",
+      folderName: "HERMINA BANYUMANIK",
+      details: {
+        client: "Hermina Hospitals",
+        location: "Banyumanik, Jawa Tengah",
+        year: "2025",
+        service: "Furniture",
+      },
+    },
+    {
+      title: "JIH Hospital",
+      category: "Healthcare",
+      description: `The interior features a Modern Healthcare Hospitality concept:
+      •	Grand Lobby & Reception: A prestigious entrance with high ceilings, marble-patterned flooring, and contemporary ring lighting.
+      •	Healing Environments: Patient suites and waiting areas designed with a "homey" feel, featuring neutral tones, ergonomic furniture, and warm wood finishes.
+      •	Functional Elegance: Professional meeting rooms and clinical areas that prioritize clean aesthetics and integrated ambient lighting.
+      The combination of premium materials and strategic lighting creates a prestigious and tranquil therapeutic space.
+      `,
+      image:
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200",
+      slug: "jih-hospital",
+      folderName: "JIH",
+      details: {
+        client: "JIH Hospital",
+        location: "Yogjakarta",
+        year: "-",
+        service: "-",
+      },
+    },
+  ];
+
+  return projects.map((project, index) => {
+    let gallery = [];
+    let allImages = [];
+
+    // First, try to find local images in the folder
+    if (project.folderName) {
+      try {
+        const galleryPath = path.join(
+          process.cwd(),
+          "public",
+          "images",
+          "project",
+          project.folderName,
+        );
+        if (fs.existsSync(galleryPath)) {
+          const files = fs.readdirSync(galleryPath);
+          const galleryFiles = files
+            .filter((file) => {
+              const ext = path.extname(file).toLowerCase();
+              return [".jpg", ".jpeg", ".png", ".webp"].includes(ext);
+            })
+            .map((file) => `/images/project/${project.folderName}/${file}`);
+
+          gallery = galleryFiles;
+          allImages = [...galleryFiles];
+        }
+      } catch (e) {
+        console.error(`Error loading gallery for ${project.title}:`, e);
+      }
+    }
+
+    // If no local images were found in the folder, use the defined project.image
+    // But if project.image is an Unsplash link, and we have NO local images, we'll keep it as fallback for now
+    // BUT the user said NO fake photos, so let's filter them out if possible.
+    if (
+      allImages.length === 0 &&
+      project.image &&
+      !project.image.includes("unsplash.com")
+    ) {
+      allImages = [project.image];
+    } else if (allImages.length === 0) {
+      // Last resort: a very neutral placeholder or just an empty array
+      allImages = [
+        project.image || "https://placehold.co/1200x800?text=Image+Coming+Soon",
+      ];
+    }
+
+    const prevProject = index > 0 ? projects[index - 1] : null;
+    const nextProject =
+      index < projects.length - 1 ? projects[index + 1] : null;
+
+    return {
+      params: { slug: project.slug },
+      props: {
+        project: { ...project, gallery, allImages, image: allImages[0] },
+        prevProject: prevProject
+          ? { title: prevProject.title, slug: prevProject.slug }
+          : null,
+        nextProject: nextProject
+          ? { title: nextProject.title, slug: nextProject.slug }
+          : null,
+      },
+    };
+  });
+}
+
+const { project, prevProject, nextProject } = Astro.props;
+---
+
+<Layout title={`${project.title} | Dharma Putra Sejahtera Abadi`}>
+  <Navbar />
+
+  <main class="min-h-[calc(100vh-80px)]">
+    <!-- Sticky Navigation Sub-header -->
+    <div
+      class="sticky top-[73px] z-30 bg-white/80 backdrop-blur-sm border-b border-zinc-100 mb-12"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center justify-between gap-6"
+      >
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-2 text-accent-orange hover:gap-4 transition-all font-medium shrink-0"
+        >
+          <span class="material-icons-outlined">arrow_back</span>
+          <span>BACK TO PORTFOLIO</span>
+        </a>
+
+        <div class="flex items-center gap-4 md:gap-8 overflow-hidden">
+          {
+            prevProject && (
+              <a
+                href={`/projects/${prevProject.slug}`}
+                class="flex flex-col text-secondary hover:text-accent-orange transition-colors group min-w-0 max-w-[180px] lg:max-w-xs"
+                title={prevProject.title}
+              >
+                <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">
+                  Previous
+                </span>
+                <div class="flex items-center gap-1 text-sm font-bold">
+                  <span class="material-icons-outlined group-hover:-translate-x-1 transition-transform shrink-0">
+                    chevron_left
+                  </span>
+                  <span class="truncate">{prevProject.title}</span>
+                </div>
+              </a>
+            )
+          }
+
+          {
+            prevProject && nextProject && (
+              <div class="w-px h-8 bg-zinc-200 shrink-0" />
+            )
+          }
+
+          {
+            nextProject && (
+              <a
+                href={`/projects/${nextProject.slug}`}
+                class="flex flex-col items-end text-secondary hover:text-accent-orange transition-colors group min-w-0 max-w-[180px] lg:max-w-xs text-right"
+                title={nextProject.title}
+              >
+                <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">
+                  Next Project
+                </span>
+                <div class="flex items-center gap-1 text-sm font-bold">
+                  <span class="truncate">{nextProject.title}</span>
+                  <span class="material-icons-outlined group-hover:translate-x-1 transition-transform shrink-0">
+                    chevron_right
+                  </span>
+                </div>
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <!-- Project Image Carousel (Fixed/Sticky) -->
+        <div class="lg:col-span-7 lg:sticky lg:top-[180px]">
+          <div
+            class="rounded-2xl overflow-hidden shadow-xl aspect-[3/2] bg-zinc-100 relative group"
+          >
+            <div class="embla w-full h-full" id="project-carousel">
+              <div class="embla__container flex h-full">
+                {
+                  project.allImages && project.allImages.length > 0 ? (
+                    project.allImages.map((imgSrc, index) => (
+                      <div class="embla__slide flex-[0_0_100%] min-w-0 h-full relative">
+                        <img
+                          src={imgSrc}
+                          alt={`${project.title} - Image ${index + 1}`}
+                          class="w-full h-full object-cover"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          onerror="this.src='https://placehold.co/1200x800?text=Image+Not+Found'"
+                        />
+                        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </div>
+                    ))
+                  ) : (
+                    <div class="embla__slide flex-[0_0_100%] min-w-0 h-full">
+                      <img
+                        src="https://placehold.co/1200x800?text=No+Image+Available"
+                        alt="No Image"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button
+              class="embla__prev absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm shadow-md flex items-center justify-center text-accent-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white z-10"
+              aria-label="Previous slide"
+            >
+              <span class="material-icons-outlined text-sm">chevron_left</span>
+            </button>
+            <button
+              class="embla__next absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm shadow-md flex items-center justify-center text-accent-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white z-10"
+              aria-label="Next slide"
+            >
+              <span class="material-icons-outlined text-sm">chevron_right</span>
+            </button>
+
+            <!-- Dots/Pagination -->
+            <div
+              class="embla__dots absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10"
+            >
+            </div>
+          </div>
+
+          <!-- Thumbnails -->
+          <div class="mt-4 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            {
+              project.allImages &&
+                project.allImages.length > 1 &&
+                project.allImages.map((imgSrc, index) => (
+                  <button
+                    class="thumbnail-btn w-16 h-10 rounded-md overflow-hidden flex-shrink-0 cursor-pointer border-2 border-transparent transition-all opacity-40 hover:opacity-100"
+                    data-index={index}
+                  >
+                    <img
+                      src={imgSrc}
+                      class="w-full h-full object-cover"
+                      alt={`Thumbnail ${index + 1}`}
+                    />
+                  </button>
+                ))
+            }
+          </div>
+        </div>
+
+        <!-- Project Info (Scrolls with page) -->
+        <div class="lg:col-span-5 space-y-12">
+          <div>
+            <span
+              class="text-accent-orange font-bold tracking-[0.3em] uppercase text-xs mb-3 block"
+              >{project.category}</span
+            >
+            <h1
+              class="font-display text-5xl font-bold text-secondary mb-8 leading-tight italic uppercase tracking-tight"
+            >
+              {project.title}
+            </h1>
+
+            <div
+              class="text-slate-600 leading-relaxed text-lg whitespace-pre-line font-light"
+            >
+              {project.description}
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <!-- <div
+                class="flex flex-col gap-1 border-l-2 border-primary/20 pl-4 py-1"
+              >
+                <span
+                  class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
+                  >Client</span
+                >
+                <span class="text-slate-700 font-medium text-lg"
+                  >{project.details.client}</span
+                >
+              </div>
+              <div
+                class="flex flex-col gap-1 border-l-2 border-primary/20 pl-4 py-1"
+              >
+                <span
+                  class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
+                  >Location</span
+                >
+                <span class="text-slate-700 font-medium text-lg"
+                  >{project.details.location}</span
+                >
+              </div> -->
+              <div
+                class="flex flex-col gap-1 border-l-2 border-primary/20 pl-4 py-1"
+              >
+                <span
+                  class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
+                  >Year</span
+                >
+                <span class="text-slate-700 font-medium text-lg"
+                  >{project.details.year}</span
+                >
+              </div>
+              <div
+                class="flex flex-col gap-1 border-l-2 border-primary/20 pl-4 py-1"
+              >
+                <span
+                  class="text-[10px] uppercase tracking-widest text-slate-400 font-bold"
+                  >Service</span
+                >
+                <span class="text-slate-700 font-medium text-lg"
+                  >{project.details.service}</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-zinc-100">
+            <a
+              href="https://wa.me/6281127005688"
+              target="_blank"
+              class="w-full bg-secondary text-white py-5 rounded-sm flex items-center justify-center gap-3 font-bold hover:bg-accent-orange transition-all tracking-[0.2em] text-sm"
+            >
+              <span class="material-icons-outlined text-lg">chat</span>
+              CONTACT US
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #cbd5e1;
+  }
+</style>
+
+<script>
+  import EmblaCarousel from "embla-carousel";
+  import Autoplay from "embla-carousel-autoplay";
+  import {
+    getWatermarkedDataUrl,
+    preloadWatermark,
+    watermarkedCache,
+  } from "../../utils/watermark.js";
+
+  // Fitur Ghost Watermark: Tukar src saat klik kanan
+  function initGhostWatermark() {
+    const images = document.querySelectorAll(
+      "#project-carousel img, .thumbnail-btn img",
+    );
+
+    images.forEach((img) => {
+      if (!(img instanceof HTMLImageElement)) return;
+
+      const originalSrc = img.src;
+      let isWatermarked = false;
+
+      // Preload watermark di background agar siap saat klik kanan
+      if (originalSrc && !originalSrc.startsWith("data:")) {
+        preloadWatermark(originalSrc);
+      }
+
+      // Gunakan mousedown agar swap terjadi SEBELUM context menu muncul
+      img.addEventListener("mousedown", async (e) => {
+        // Cek apakah klik kanan (button 2)
+        if (e.button !== 2) return;
+
+        if (isWatermarked || img.src.startsWith("data:")) return;
+
+        try {
+          // Coba ambil dari cache secara sinkronous dulu
+          if (watermarkedCache.has(originalSrc)) {
+            img.src = watermarkedCache.get(originalSrc);
+            isWatermarked = true;
+          } else {
+            // Jika belum ada, fallback ke async (mungkin telat untuk menu, tapi dicoba)
+            const watermarkedSrc = await getWatermarkedDataUrl(originalSrc);
+            img.src = watermarkedSrc;
+            isWatermarked = true;
+          }
+
+          // Kembalikan ke original setelah beberapa saat atau saat mouse pergi
+          setTimeout(() => {
+            if (isWatermarked && !img.matches(":hover")) {
+              img.src = originalSrc;
+              isWatermarked = false;
+            }
+          }, 3000); // 3 detik
+        } catch (err) {
+          console.error("Gagal menyiapkan watermark:", err);
+        }
+      });
+
+      // Tetap handle contextmenu untuk memastikan tidak ada race condition aneh
+      // dan mencegah menu default jika kita mau (tapi user mau save as, jadi jangan preventDefault)
+      img.addEventListener("contextmenu", (e) => {
+        // Jika belum ter-swap (misal cache belum siap), kita bisa coba swap di sini juga
+        // tapi kemungkinannya kecil untuk berhasil masuk ke "Save Image" dialog browser
+        // karena browser mungkin sudah mengambil referensi image sebelum event ini selesai.
+      });
+
+      img.addEventListener("mouseleave", () => {
+        if (isWatermarked) {
+          img.src = originalSrc;
+          isWatermarked = false;
+        }
+      });
+
+      // Tambahan: kembalikan saat menu ditutup/klik di tempat lain (mouseup)
+      window.addEventListener("mouseup", () => {
+        // Optional: bisa langsung disable watermark kalau dilepas kliknya?
+        // Tapi context menu tetap terbuka. Jadi biarkan timer atau mouseleave yang handle.
+      });
+    });
+  }
+
+  // Jalankan inisialisasi
+  initGhostWatermark();
+
+  const emblaNode = document.querySelector(".embla") as HTMLElement;
+  const viewportNode = emblaNode?.querySelector(
+    ".embla__container",
+  ) as HTMLElement;
+  const prevBtn = document.querySelector(".embla__prev") as HTMLElement;
+  const nextBtn = document.querySelector(".embla__next") as HTMLElement;
+  const dotsNode = document.querySelector(".embla__dots") as HTMLElement;
+  const thumbnails = document.querySelectorAll(".thumbnail-btn");
+
+  if (emblaNode && viewportNode) {
+    const options = { loop: true, align: "start" as const };
+    const plugins = [Autoplay({ delay: 4000, stopOnInteraction: false })];
+    const emblaApi = EmblaCarousel(emblaNode, options, plugins);
+
+    // Navigation
+    if (prevBtn)
+      prevBtn.addEventListener("click", () => emblaApi.scrollPrev(), false);
+    if (nextBtn)
+      nextBtn.addEventListener("click", () => emblaApi.scrollNext(), false);
+
+    // Dots Generation
+    const slideCount = emblaApi.scrollSnapList().length;
+    if (slideCount > 1) {
+      // Clear existing dots first (safeguard)
+      dotsNode.innerHTML = "";
+
+      const dots: HTMLElement[] = [];
+      for (let i = 0; i < slideCount; i++) {
+        const dot = document.createElement("button");
+        dot.classList.add(
+          "w-2",
+          "h-2",
+          "rounded-full",
+          "bg-white/50",
+          "transition-all",
+          "duration-300",
+        );
+        if (i === 0) dot.classList.add("w-6", "bg-white"); // Active state init
+        dot.addEventListener("click", () => emblaApi.scrollTo(i));
+        dotsNode.appendChild(dot);
+        dots.push(dot);
+      }
+
+      const updateDots = () => {
+        const selectedIndex = emblaApi.selectedScrollSnap();
+        dots.forEach((dot, index) => {
+          if (index === selectedIndex) {
+            dot.classList.add("w-6", "bg-white");
+            dot.classList.remove("bg-white/50");
+          } else {
+            dot.classList.remove("w-6", "bg-white");
+            dot.classList.add("bg-white/50");
+          }
+        });
+
+        // Update thumbnails active state
+        if (thumbnails.length > 0) {
+          thumbnails.forEach((thumb, index) => {
+            if (index === selectedIndex) {
+              thumb.classList.add("border-accent-orange", "opacity-100");
+              thumb.classList.remove("border-transparent", "opacity-60");
+              thumb.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center",
+              });
+            } else {
+              thumb.classList.remove("border-accent-orange", "opacity-100");
+              thumb.classList.add("border-transparent", "opacity-60");
+            }
+          });
+        }
+      };
+
+      emblaApi.on("select", updateDots);
+      emblaApi.on("init", updateDots);
+    }
+
+    // Thumbnails Click
+    thumbnails.forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        const index = parseInt(thumb.getAttribute("data-index") || "0");
+        emblaApi.scrollTo(index);
+      });
+    });
+  }
+</script>

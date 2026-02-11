@@ -1,0 +1,245 @@
+<nav
+  class="fixed top-0 left-0 w-full z-50 bg-background-light/80 backdrop-blur-lg border-b border-primary/10 transition-all duration-300"
+  id="main-nav"
+>
+  <div
+    class="max-w-7xl mx-auto px-6 py-1.5 flex justify-between items-center relative z-50"
+  >
+    <div class="flex items-center gap-3">
+      <a
+        href="/#home"
+        class="flex items-center group transition-transform duration-300 hover:scale-105"
+      >
+        <img
+          src="/images/logo2.png"
+          alt="Dharma Putra Sejahtera Abadi Logo"
+          class="h-12 md:h-14 w-auto object-contain"
+          id="nav-logo"
+        />
+        <span
+          class="ml-3 text-xl md:text-2xl font-display font-bold text-secondary tracking-tight"
+        >
+          PT <span class="text-accent-blue">DPSA</span>
+        </span>
+      </a>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-8">
+      {
+        [
+          { href: "/#home", text: "Home" },
+          { href: "/#about", text: "About" },
+          { href: "/#subsidiaries", text: "Subsidiaries" },
+          // { href: "/#process", text: "Process" },
+          { href: "/#projects", text: "Projects" },
+          { href: "/#client", text: "Clients" },
+          { href: "/careers", text: "Careers" },
+          {
+            href: "https://www.trackingorderdpsa.xyz/",
+            text: "Track Order",
+            external: true,
+          },
+        ].map((item) => (
+          <a
+            href={item.href}
+            target={item.external ? "_blank" : undefined}
+            class="relative text-[0.75rem] font-bold text-slate-600 hover:text-primary transition-colors uppercase tracking-[0.1em] group py-2"
+          >
+            {item.text}
+            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+          </a>
+        ))
+      }
+      <a
+        href="https://wa.me/6281127005688"
+        target="_blank"
+        class="bg-accent-orange text-white text-[0.7rem] font-bold uppercase tracking-widest px-5 py-2 rounded-full hover:bg-accent-orange/90 hover:shadow-lg hover:shadow-accent-orange/20 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95"
+      >
+        Contact Us
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-toggle" class="p-2 text-primary md:hidden group">
+      <div class="w-6 h-5 flex flex-col justify-between items-end">
+        <span
+          class="w-full h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-2/3"
+        ></span>
+        <span
+          class="w-2/3 h-0.5 bg-primary rounded-full transition-all duration-300"
+        ></span>
+        <span
+          class="w-full h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-1/2"
+        ></span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-background-light z-[60] transform translate-x-full opacity-0 invisible transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] md:hidden flex flex-col w-full h-screen"
+  >
+    <!-- Mobile Header -->
+    <div
+      class="flex justify-between items-center px-6 py-6 border-b border-primary/10"
+    >
+      <a href="/#home" class="flex items-center">
+        <img
+          src="/images/logo2.png"
+          alt="Dharma Putra Sejahtera Abadi Logo"
+          class="h-14 w-auto object-contain"
+        />
+        <span
+          class="ml-3 text-xl md:text-2xl font-display font-bold text-secondary tracking-tight"
+        >
+          PT <span class="text-accent-blue">DPSA</span>
+        </span>
+      </a>
+      <button
+        id="close-menu"
+        class="p-2 text-secondary hover:text-primary transition-colors focus:outline-none"
+      >
+        <span class="material-icons-outlined text-3xl">close</span>
+      </button>
+    </div>
+
+    <!-- Mobile Scrollable Content -->
+    <div
+      class="flex-1 overflow-y-auto px-8 py-10 flex flex-col justify-between"
+    >
+      <div class="space-y-6">
+        {
+          [
+            { href: "/#home", text: "Home", icon: "home" },
+            { href: "/#about", text: "About Us", icon: "info" },
+            { href: "/#subsidiaries", text: "Subsidiaries", icon: "business" },
+            // { href: "/#process", text: "Process", icon: "settings" },
+            { href: "/#projects", text: "Projects", icon: "work" },
+            { href: "/#client", text: "Clients", icon: "group" },
+            { href: "/careers", text: "Careers", icon: "person_search" },
+            {
+              href: "https://www.trackingorderdpsa.xyz/",
+              text: "Track Order",
+              icon: "analytics",
+              external: true,
+            },
+          ].map((item, index) => (
+            <a
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              class="mobile-link flex items-center justify-between group translate-y-8 opacity-0 transition-all duration-700"
+              style={`transition-delay: ${index * 50}ms;`}
+            >
+              <span class="text-4xl font-display font-bold text-secondary group-hover:text-primary transition-colors">
+                {item.text}
+              </span>
+              <div class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <span class="material-icons-outlined text-xl">{item.icon}</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <div
+        class="pb-10 translate-y-8 opacity-0 transition-all duration-700 delay-[500ms]"
+        id="mobile-footer"
+      >
+        <div class="w-full h-px bg-primary/10 mb-8"></div>
+        <div class="flex flex-col gap-4">
+          <p
+            class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold"
+          >
+            Reach Out To Us
+          </p>
+          <a
+            href="https://wa.me/6281127005688"
+            target="_blank"
+            class="flex items-center gap-4 text-secondary font-bold text-xl group hover:text-primary transition-colors"
+          >
+            <div
+              class="w-12 h-12 bg-primary flex items-center justify-center rounded-xl text-white group-hover:scale-110 transition-transform"
+            >
+              <span class="material-icons-outlined">chat</span>
+            </div>
+            0811-2700-5688
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const closeMenu = document.getElementById("close-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+    const mobileFooter = document.getElementById("mobile-footer");
+    const mainNav = document.getElementById("main-nav");
+
+    // Scroll Behavior
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        mainNav?.classList.add("py-0.5", "shadow-md", "bg-background-light/95");
+        mainNav?.classList.remove(
+          "py-1.5",
+          "bg-background-light/80",
+          "border-transparent",
+        );
+        mainNav?.classList.add("border-primary/10");
+      } else {
+        mainNav?.classList.remove(
+          "py-0.5",
+          "shadow-md",
+          "bg-background-light/95",
+          "border-primary/10",
+        );
+        mainNav?.classList.add(
+          "py-1.5",
+          "bg-background-light/80",
+          "border-transparent",
+        );
+      }
+    });
+
+    const toggleMenu = (open: boolean) => {
+      if (open) {
+        mobileMenu?.classList.remove(
+          "translate-x-full",
+          "opacity-0",
+          "invisible",
+        );
+        document.body.style.overflow = "hidden";
+
+        // Animate items in
+        setTimeout(() => {
+          mobileLinks.forEach((link) => {
+            link.classList.remove("translate-y-8", "opacity-0");
+          });
+          mobileFooter?.classList.remove("translate-y-8", "opacity-0");
+        }, 100);
+      } else {
+        mobileMenu?.classList.add("translate-x-full", "opacity-0");
+        document.body.style.overflow = "";
+
+        // Reset animation state after transition
+        setTimeout(() => {
+          mobileMenu?.classList.add("invisible");
+          mobileLinks.forEach((link) => {
+            link.classList.add("translate-y-8", "opacity-0");
+          });
+          mobileFooter?.classList.add("translate-y-8", "opacity-0");
+        }, 700);
+      }
+    };
+
+    menuToggle?.addEventListener("click", () => toggleMenu(true));
+    closeMenu?.addEventListener("click", () => toggleMenu(false));
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => toggleMenu(false));
+    });
+  </script>
+</nav>

@@ -1,0 +1,351 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import fs from "node:fs";
+import path from "node:path";
+
+const projectsData = [
+  {
+    title: "Luminor Hotel Purwokerto",
+    category: "Hospitality",
+    description:
+      "Modern thematic interior featuring unique ocean murals and a warm, urban vintage lounge atmosphere.",
+    image: "/images/project/LUMINOR PURWOKERTO/luminor-hotel-1 (1).jpg",
+    slug: "luminor-hotel-purwokerto",
+    folderName: "LUMINOR PURWOKERTO",
+  },
+  {
+    title: "Aston Kemayoran",
+    category: "Hospitality",
+    description:
+      "Refined contemporary hospitality design emphasizing clean lines, neutral tones, and functional elegance.",
+    image: "/images/project/ASTON KEMAYORAN/268169465 (2).jpg",
+    slug: "aston-kemayoran",
+    folderName: "ASTON KEMAYORAN",
+  },
+  {
+    title: "Biznet",
+    category: "Corporate",
+    description:
+      "Sophisticated workspace blending natural wood textures and strategic lighting for a prestigious corporate feel.",
+    image: "/images/project/BIZNET/20240425_140916.jpg",
+    slug: "biznet",
+    folderName: "BIZNET",
+  },
+  {
+    title: "Eatery Kopi TM",
+    category: "F&B",
+    description:
+      "A warm retro-modern fusion concept featuring ethnic-patterned tiling and artistic decorative lighting.",
+    image:
+      "/images/project/ESTERN KOPI TM/91534053_244884473360082_6923567369945789905_n (1).jpg",
+    slug: "eatery-kopi-tm",
+    folderName: "ESTERN KOPI TM",
+  },
+  {
+    title: "Hamori Subang",
+    category: "Healthcare",
+    description:
+      "Premium healthcare design with a grand lobby and patient suites that offer a home-like healing environment.",
+    image:
+      "/images/project/HAMORI SUBANG/WhatsApp Image 2025-10-06 at 13.20.01_75e62826.jpg",
+    slug: "hamori-subang",
+    folderName: "HAMORI SUBANG",
+  },
+  {
+    title: "Hasna Medika",
+    category: "Healthcare",
+    description:
+      "A meticulously crafted healing environment where comfort and functionality support patient recovery.",
+    image:
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200",
+    slug: "hasna-medika",
+    folderName: "HASNA MEDIKA",
+  },
+  {
+    title: "Hermina IKN",
+    category: "Healthcare",
+    description:
+      "Thoughtfully designed hospital interiors promoting dignity and well-being through intuitive, aesthetic layouts.",
+    image:
+      "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=1200",
+    slug: "hermina-ikn",
+    folderName: "HERMINA IKN",
+  },
+  {
+    title: "Hermina PIK 2",
+    category: "Healthcare",
+    description:
+      "Modern hospitality-oriented healthcare design featuring neutral palettes and warm wood accents.",
+    image:
+      "https://images.unsplash.com/photo-1538108197017-c1a966b95df3?auto=format&fit=crop&q=80&w=1200",
+    slug: "hermina-pik-2",
+    folderName: "hermina pik",
+  },
+  {
+    title: "Kamora Living",
+    category: "Residential",
+    description:
+      "Tropical-modern living highlighting natural materials, character-driven woodwork, and an exclusive aesthetic.",
+    image: "/images/project/KAMORA LIVING/KAMORA LIVING (2).jpg",
+    slug: "kamora-living",
+    folderName: "KAMORA LIVING",
+  },
+  {
+    title: "Kemenkes IKN",
+    category: "Government",
+    description:
+      "State-of-the-art government workspace featuring custom oak cabinetry and prestigious marble finishes.",
+    image:
+      "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200",
+    slug: "kemenkes-ikn",
+    folderName: "KEMENKES IKN",
+  },
+  {
+    title: "Residential House",
+    category: "Residential",
+    description:
+      "Minimalist luxury residence defined by elegant wood textures and bespoke furniture solutions.",
+    image:
+      "https://dharmaputrainterior.co.id/images/576/21766698/IMG-20250206-WA0005-HMNycmUlrWesBjZTAht8mA-u2dP-DBbcVyDBqK4eePGbA.jpg",
+    slug: "private-luxury-residence",
+    folderName: "Residential",
+  },
+  {
+    title: "Mataram Jogja",
+    category: "Hospitality",
+    description:
+      "Urban elegance combining custom oak cabinetry, fluted wall panels, and luxurious white marble.",
+    image: "/images/project/MATARAM JOGJA/mataram city (2).jpg",
+    slug: "mataram-jogja",
+    folderName: "MATARAM JOGJA",
+  },
+  {
+    title: "Panti Rapih",
+    category: "Healthcare",
+    description:
+      "Professional environments blending warm wood and marble to create prestigious healthcare and executive spaces.",
+    image: "/images/project/PANTI RAPIH/Panti Rapih (2).jpg",
+    slug: "panti-rapih",
+    folderName: "PANTI RAPIH",
+  },
+  {
+    title: "Patraland Amarta",
+    category: "Residential",
+    description:
+      "Modern apartment aesthetics optimized through premium cabinetry and elegant, functional wall paneling.",
+    image: "/images/project/PATRALAND AMARTA/patraland (2).jpg",
+    slug: "patraland-amarta",
+    folderName: "PATRALAND AMARTA",
+  },
+  {
+    title: "Punika Deli",
+    category: "F&B",
+    description:
+      "A commercial deli space where design and atmosphere merge through custom furniture and refined materials.",
+    image: "/images/project/PUNIKA DELI/punika (2).jpg",
+    slug: "punika-deli",
+    folderName: "PUNIKA DELI",
+  },
+  {
+    title: "Royal Ambarukmo",
+    category: "Corporate",
+    description:
+      "Luxury heritage hotel renovation preserving original character while integrating modern functional spaces.",
+    image: "/images/project/ROYAL AMBARUKMO/wide-1.jpg",
+    slug: "royal-ambarukmo",
+    folderName: "ROYAL AMBARUKMO",
+  },
+  {
+    title: "Hermina Banyumanik Hospital",
+    category: "Healthcare",
+    description:
+      "Modern medical facility focused on a clean, comfortable, and service-oriented healing environment.",
+    image: "/images/project/HERMINA BANYUMANIK/1.jpg",
+    slug: "hermina-banyumanik",
+    folderName: "HERMINA BANYUMANIK",
+  },
+  {
+    title: "JIH Hospital",
+    category: "Healthcare",
+    description:
+      "Prestigious reception and healing spaces featuring contemporary lighting and a tranquil, therapeutic atmosphere.",
+    image: "/images/project/JIH/1.jpg",
+    slug: "jih-hospital",
+    folderName: "JIH",
+  },
+];
+
+const projects = projectsData.map((project) => {
+  if (project.folderName) {
+    try {
+      const folderPath = path.join(
+        process.cwd(),
+        "public",
+        "images",
+        "project",
+        project.folderName,
+      );
+      if (fs.existsSync(folderPath)) {
+        const files = fs.readdirSync(folderPath);
+        const images = files.filter((f) =>
+          [".jpg", ".jpeg", ".png", ".webp"].includes(
+            path.extname(f).toLowerCase(),
+          ),
+        );
+        if (images.length > 0) {
+          return {
+            ...project,
+            image: `/images/project/${project.folderName}/${images[0]}`,
+          };
+        }
+      }
+    } catch (e) {}
+  }
+  return project;
+});
+---
+
+<Layout title="Our Projects | Dharma Putra Sejahtera Abadi">
+  <Navbar />
+
+  <main class="pt-20 pb-8">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Back Button -->
+      <div class="mb-8">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-accent-orange hover:gap-4 transition-all font-medium"
+        >
+          <span class="material-icons-outlined">arrow_back</span>
+          <span>BACK TO HOME</span>
+        </a>
+      </div>
+
+      <header class="mb-8 border-b border-primary/10 pb-12">
+        <span
+          class="text-accent-orange font-bold tracking-[0.2em] uppercase text-sm mb-2 block"
+          >Portfolio</span
+        >
+        <h1
+          class="font-display text-5xl md:text-6xl text-secondary font-bold mb-6 italic"
+        >
+          OUR PROJECTS
+        </h1>
+        <p class="text-slate-500 max-w-2xl text-lg">
+          A curated collection of our finest work across residential,
+          commercial, and hospitality sectors. Each project is a testament to
+          our commitment to quality and design excellence.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          projects.map((project) => (
+            <a
+              href={`/projects/${project.slug}`}
+              class="group cursor-pointer block"
+            >
+              <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden mb-4 relative aspect-[4/3]">
+                <img
+                  alt={project.title}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  src={project.image}
+                  onerror="this.src='https://placehold.co/800x600?text=Project+Image'"
+                />
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+                <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white translate-y-4 group-hover:translate-y-0 transition-transform">
+                  <p class="text-xs font-bold uppercase tracking-wider mb-1 text-accent-orange">
+                    {project.category}
+                  </p>
+                  <h3 class="font-display text-xl font-bold">
+                    {project.title}
+                  </h3>
+                </div>
+              </div>
+              <div class="px-2">
+                <p class="text-sm text-slate-500 line-clamp-3">
+                  {project.description}
+                </p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import {
+    getWatermarkedDataUrl,
+    preloadWatermark,
+    watermarkedCache,
+  } from "../../utils/watermark.js";
+
+  function initGhostWatermark() {
+    const images = document.querySelectorAll("main img");
+
+    images.forEach((img) => {
+      if (!(img instanceof HTMLImageElement)) return;
+
+      const originalSrc = img.src;
+      let isWatermarked = false;
+
+      // Preload saat halaman dimuat
+      if (originalSrc && !originalSrc.startsWith("data:")) {
+        preloadWatermark(originalSrc);
+      }
+
+      // Gunakan mousedown agar swap terjadi SEBELUM context menu muncul
+      img.addEventListener("mousedown", async (e) => {
+        if (e.button !== 2) return; // Hanya klik kanan
+
+        if (isWatermarked || img.src.startsWith("data:")) return;
+
+        try {
+          // Coba ambil dari cache secara sinkronous dulu
+          if (watermarkedCache.has(originalSrc)) {
+            img.src = watermarkedCache.get(originalSrc);
+            isWatermarked = true;
+          } else {
+            // Fallback async
+            const watermarkedSrc = await getWatermarkedDataUrl(originalSrc);
+            img.src = watermarkedSrc;
+            isWatermarked = true;
+          }
+
+          setTimeout(() => {
+            if (isWatermarked && !img.matches(":hover")) {
+              img.src = originalSrc;
+              isWatermarked = false;
+            }
+          }, 3000);
+        } catch (err) {
+          console.error("Gagal menyiapkan watermark:", err);
+        }
+      });
+
+      img.addEventListener("contextmenu", (e) => {
+        // Context menu handler dibiarkan kosong atau log saja
+        // Browser akan menggunakan image yg sudah di-swap saat mousedown
+      });
+
+      img.addEventListener("mouseleave", () => {
+        if (isWatermarked) {
+          img.src = originalSrc;
+          isWatermarked = false;
+        }
+      });
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", initGhostWatermark);
+  if (
+    document.readyState === "complete" ||
+    document.readyState === "interactive"
+  ) {
+    initGhostWatermark();
+  }
+</script>
