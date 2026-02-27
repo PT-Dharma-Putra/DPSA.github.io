@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    /* Primary Color (Logo Blue) */
-    --color-primary: 0 123 255; /* #007BFF - Brighter Blue */
-    --color-primary-dark: 0 84 145; /* #005491 - Keep Dark Blue for contrast */
-    --color-primary-light: 102 177 255; /* Lighter shade */
+    /* Primary Color (New Blue #1560bd) */
+    --color-primary: 21 96 189; /* #1560bd */
+    --color-primary-dark: 14 75 150; /* #0e4b96 - Darker shade of #1560bd */
+    --color-primary-light: 86 148 227; /* Lighter shade */
 
     /* Secondary Color (Deep Charcoal / Slate) */
     --color-secondary: 15 23 42; /* #0F172A */
@@ -38,7 +38,7 @@
   }
 
   .text-gradient-primary {
-    background: linear-gradient(135deg, #0067b1 0%, #005491 100%);
+    background: linear-gradient(135deg, #1560bd 0%, #0e4b96 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -59,7 +59,7 @@
     transform: translateX(-50%);
     width: 2px;
     height: 20px;
-    background: #0067b133;
+    background: #1560bd33;
   }
 
   .timeline-capsule:last-child::after {
@@ -67,7 +67,7 @@
   }
 
   .hero-pattern {
-    background-image: radial-gradient(#0067b1 0.5px, transparent 0.5px);
+    background-image: radial-gradient(#1560bd 0.5px, transparent 0.5px);
     background-size: 24px 24px;
     opacity: 0.1;
   }

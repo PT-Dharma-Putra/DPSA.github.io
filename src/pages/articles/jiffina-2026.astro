@@ -1,0 +1,157 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+const article = {
+  title: "We Are Present at JIFFINA 2026",
+  date: "March 07 - 10, 2026",
+  image: "/images/PosterJIFFINA.png",
+  location: "Jogja Expo Center",
+  venue: "Booth B-12 A",
+  content: `
+    Jogja International Furniture & Craft Fair (JIFFINA) is one of the leading international furniture and craft exhibitions in Indonesia. Sorajati is proud to announce our participation in JIFFINA 2026.
+
+    We will be showcasing our latest furniture collections and interior solutions. Our team of experts will be available to discuss your projects and how we can bring your vision to life with our high-quality craftsmanship and innovative designs.
+
+    Don't miss the chance to explore our premium products and witness firsthand the excellence of Sorajati's craftsmanship.
+  `,
+};
+---
+
+<Layout title="We Are Present at JIFFINA 2026 | Dharma Putra Sejahtera Abadi">
+  <Navbar isSolid={true} />
+
+  <main class="pt-32 pb-24 min-h-[calc(100vh-80px)]">
+    <!-- Breadcrumbs -->
+    <div class="max-w-4xl mx-auto px-6 mb-12">
+      <a
+        href="/articles"
+        class="inline-flex items-center gap-2 text-accent-orange hover:gap-4 transition-all font-bold tracking-wider text-[0.7rem] group"
+      >
+        <span
+          class="material-icons-outlined text-sm group-hover:-translate-x-1 transition-transform"
+          >arrow_back</span
+        >
+        <span>BACK TO ARTICLES</span>
+      </a>
+    </div>
+
+    <article class="max-w-4xl mx-auto px-6">
+      <div class="mb-12">
+        <div
+          class="flex items-center gap-3 text-slate-400 text-[10px] uppercase tracking-[0.3em] font-bold mb-4"
+        >
+          <span class="material-icons-outlined text-sm">calendar_today</span>
+          {article.date}
+          <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+          <span>Event</span>
+        </div>
+
+        <h1
+          class="font-display text-4xl md:text-6xl font-bold text-secondary mb-8 leading-tight italic uppercase tracking-tight"
+        >
+          {article.title}
+        </h1>
+
+        <div
+          class="flex flex-wrap items-center gap-6 py-6 border-y border-zinc-100 mb-12"
+        >
+          <div
+            class="flex items-center gap-3 border-r border-zinc-100 pr-6 mr-6"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-accent-orange shadow-sm"
+            >
+              <span class="material-icons-outlined text-lg">location_on</span>
+            </div>
+            <div>
+              <p
+                class="text-[9px] uppercase tracking-widest text-slate-400 font-bold"
+              >
+                Location
+              </p>
+              <p class="text-secondary font-bold text-sm">{article.location}</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-accent-orange shadow-sm"
+            >
+              <span class="material-icons-outlined text-lg">meeting_room</span>
+            </div>
+            <div>
+              <p
+                class="text-[9px] uppercase tracking-widest text-slate-400 font-bold"
+              >
+                Venue
+              </p>
+              <p class="text-secondary font-bold text-sm">{article.venue}</p>
+            </div>
+          </div>
+
+          <a
+            href="https://wa.me/6285866005019"
+            target="_blank"
+            class="ml-auto inline-flex items-center gap-2 bg-accent-orange hover:bg-accent-orange/90 text-white px-6 py-3 rounded-full font-bold text-[10px] uppercase tracking-[0.15em] transition-all shadow-lg shadow-accent-orange/20 hover:scale-105"
+          >
+            <span class="material-icons-outlined text-sm">chat</span>
+            Contact Us
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="rounded-3xl overflow-hidden shadow-2xl mb-16 aspect-[4/5] max-w-sm mx-auto border-8 border-white"
+      >
+        <img
+          src={article.image}
+          alt="JIFFINA 2026 Poster"
+          class="w-full h-full object-cover object-top"
+          onerror="this.src='/images/PosterIFEX.png'; this.alt='Poster Placeholder';"
+        />
+      </div>
+
+      <div
+        class="prose prose-lg max-w-none text-slate-600 font-light leading-relaxed mb-16"
+      >
+        {
+          article.content
+            .split("\n\n")
+            .map((paragraph) => <p class="mb-6">{paragraph}</p>)
+        }
+      </div>
+
+      <div
+        class="bg-zinc-50 rounded-[2.5rem] p-10 md:p-16 text-center border border-zinc-100"
+      >
+        <span
+          class="text-accent-orange font-bold tracking-[0.3em] uppercase text-[0.6rem] mb-4 block"
+          >Event Highlight</span
+        >
+        <h2
+          class="font-display text-3xl md:text-4xl font-bold text-secondary mb-6 italic uppercase"
+        >
+          Ready to explore?
+        </h2>
+        <p class="text-slate-500 max-w-xl mx-auto mb-10 font-light">
+          Visit our booth to see our latest collections firsthand and discuss
+          your next project with our team.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="https://wa.me/6285866005019"
+            target="_blank"
+            class="inline-flex items-center gap-3 bg-secondary hover:bg-accent-orange text-white px-10 py-5 rounded-full font-bold text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300 shadow-xl shadow-secondary/20"
+          >
+            <span class="material-icons-outlined text-lg">chat</span>
+            Contact Us for Details
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>

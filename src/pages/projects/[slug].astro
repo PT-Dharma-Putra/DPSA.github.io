@@ -47,7 +47,7 @@ export async function getStaticPaths() {
     },
     {
       title: "Biznet",
-      category: "Corporate",
+      category: "Office",
       description: `The interior showcases a sophisticated modern-contemporary design with a warm, professional atmosphere:
       •	Conference Room: A spacious, well-lit meeting area featuring a sleek wooden table, ergonomic leather seating, and integrated ambient cove lighting.
       •	Aesthetic Accents: Custom light-oak cabinetry and fluted wood wall panels that seamlessly blend storage with decorative display space.
@@ -102,7 +102,7 @@ export async function getStaticPaths() {
         client: "Hamori Hospital",
         location: "Subang",
         year: "2022",
-        service: "Furniture Pintu",
+        service: "Door Furniture",
       },
     },
     {
@@ -153,7 +153,7 @@ export async function getStaticPaths() {
     {
       title: "Kamora Living",
       category: "Hospitality",
-      description: `The rooms at Kammora Living are designed with a focus on the warmth of natural materials and contemporary aesthetics. The wooden kitchen set, with its striking grain texture, gives the kitchen and dining area a strong character, complemented by rattan pendant lights that reinforce the tropical feel.
+      description: `The rooms at Kamora Living are designed with a focus on the warmth of natural materials and contemporary aesthetics. The wooden kitchen set, with its striking grain texture, gives the kitchen and dining area a strong character, complemented by rattan pendant lights that reinforce the tropical feel.
       The living room combines wooden ceiling panels, large abstract paintings, and minimalist-style furniture that remains comfortable, creating a relaxed yet elegant atmosphere. Every element, from the coffee table to the bar stools, is carefully selected for a harmonious design unity.
       The bathroom exudes exclusivity with a combination of natural stone, a matte black shower, and a solid stone sink designed not only for functionality but also artistic appeal—offering a relaxing experience with a tropical-modern aesthetic that seamlessly blends together.
       `,
@@ -222,7 +222,7 @@ export async function getStaticPaths() {
       folderName: "MATARAM JOGJA",
       details: {
         client: "Mataram Hotel",
-        location: "Yogjakarta",
+        location: "Yogyakarta",
         year: "-",
         service: "-",
       },
@@ -242,9 +242,9 @@ export async function getStaticPaths() {
       folderName: "PANTI RAPIH",
       details: {
         client: "RS Panti Rapih",
-        location: "Yogjakarta",
+        location: "Yogyakarta",
         year: "2024",
-        service: "Furniture R. Boromeus & Renovasi R. Hemodialisa",
+        service: "Furniture for Boromeus Room & Hemodialisa Room Renovation",
       },
     },
     {
@@ -278,14 +278,14 @@ export async function getStaticPaths() {
       folderName: "PUNIKA DELI",
       details: {
         client: "Royal Ambarukmo Group",
-        location: "Yogjakarta",
+        location: "Yogyakarta",
         year: "2016",
-        service: "Loose Funiture",
+        service: "Loose Furniture",
       },
     },
     {
       title: "Royal Ambarukmo",
-      category: "Corporate",
+      category: "Hospitality",
       description: `The interior features a Modern Urban Elegance concept:
       •	Executive Meeting Spaces: A formal, spacious conference room with a large wooden table and premium ergonomic seating.
       •	Premium Finishes: Features custom light-oak cabinetry, fluted wall panels, and luxurious marble flooring.
@@ -298,7 +298,7 @@ export async function getStaticPaths() {
       folderName: "ROYAL AMBARUKMO",
       details: {
         client: "Royal Ambarukmo",
-        location: "Yogjakarta",
+        location: "Yogyakarta",
         year: "-",
         service: "-",
       },
@@ -337,7 +337,7 @@ export async function getStaticPaths() {
       folderName: "JIH",
       details: {
         client: "JIH Hospital",
-        location: "Yogjakarta",
+        location: "Yogyakarta",
         year: "-",
         service: "-",
       },
@@ -414,40 +414,45 @@ const { project, prevProject, nextProject } = Astro.props;
 ---
 
 <Layout title={`${project.title} | Dharma Putra Sejahtera Abadi`}>
-  <Navbar />
+  <Navbar isSolid={true} />
 
   <main class="min-h-[calc(100vh-80px)]">
     <!-- Sticky Navigation Sub-header -->
     <div
-      class="sticky top-[73px] z-30 bg-white/80 backdrop-blur-sm border-b border-zinc-100 mb-12"
+      class="sticky top-[73px] z-30 bg-white/95 backdrop-blur-md border-b border-zinc-100 mb-12 shadow-sm"
     >
       <div
-        class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center justify-between gap-6"
+        class="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-6"
       >
         <a
           href="/projects"
-          class="inline-flex items-center gap-2 text-accent-orange hover:gap-4 transition-all font-medium shrink-0"
+          class="inline-flex items-center gap-2 text-accent-orange hover:text-accent-orange/80 transition-all font-bold tracking-wider text-[0.7rem] group shrink-0"
         >
-          <span class="material-icons-outlined">arrow_back</span>
+          <span
+            class="material-icons-outlined text-sm group-hover:-translate-x-1 transition-transform"
+            >arrow_back</span
+          >
           <span>BACK TO PORTFOLIO</span>
         </a>
 
-        <div class="flex items-center gap-4 md:gap-8 overflow-hidden">
+        <div
+          class="flex items-center gap-4 md:gap-12 min-w-0 md:flex-1 justify-end"
+        >
           {
             prevProject && (
               <a
                 href={`/projects/${prevProject.slug}`}
-                class="flex flex-col text-secondary hover:text-accent-orange transition-colors group min-w-0 max-w-[180px] lg:max-w-xs"
+                class="flex-1 flex flex-col items-start text-secondary hover:text-accent-orange transition-all group min-w-0 max-w-[200px]"
                 title={prevProject.title}
               >
-                <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">
+                <span class="text-[9px] uppercase tracking-[0.2em] text-slate-400 font-bold mb-1 whitespace-nowrap">
                   Previous
                 </span>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span class="material-icons-outlined group-hover:-translate-x-1 transition-transform shrink-0">
+                <div class="flex items-center gap-1 text-[13px] font-bold w-full">
+                  <span class="material-icons-outlined text-sm group-hover:-translate-x-1 transition-transform shrink-0">
                     chevron_left
                   </span>
-                  <span class="truncate">{prevProject.title}</span>
+                  <span class="truncate block">{prevProject.title}</span>
                 </div>
               </a>
             )
@@ -455,7 +460,7 @@ const { project, prevProject, nextProject } = Astro.props;
 
           {
             prevProject && nextProject && (
-              <div class="w-px h-8 bg-zinc-200 shrink-0" />
+              <div class="w-px h-8 bg-zinc-200 shrink-0 hidden sm:block" />
             )
           }
 
@@ -463,15 +468,15 @@ const { project, prevProject, nextProject } = Astro.props;
             nextProject && (
               <a
                 href={`/projects/${nextProject.slug}`}
-                class="flex flex-col items-end text-secondary hover:text-accent-orange transition-colors group min-w-0 max-w-[180px] lg:max-w-xs text-right"
+                class="flex-1 flex flex-col items-end text-secondary hover:text-accent-orange transition-all group min-w-0 max-w-[200px] text-right"
                 title={nextProject.title}
               >
-                <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">
+                <span class="text-[9px] uppercase tracking-[0.2em] text-slate-400 font-bold mb-1 whitespace-nowrap">
                   Next Project
                 </span>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span class="truncate">{nextProject.title}</span>
-                  <span class="material-icons-outlined group-hover:translate-x-1 transition-transform shrink-0">
+                <div class="flex items-center gap-1 text-[13px] font-bold w-full justify-end">
+                  <span class="truncate block">{nextProject.title}</span>
+                  <span class="material-icons-outlined text-sm group-hover:translate-x-1 transition-transform shrink-0">
                     chevron_right
                   </span>
                 </div>
@@ -631,9 +636,9 @@ const { project, prevProject, nextProject } = Astro.props;
 
           <div class="pt-8 border-t border-zinc-100">
             <a
-              href="https://wa.me/6281127005688"
+              href="https://wa.me/6281128507788"
               target="_blank"
-              class="w-full bg-secondary text-white py-5 rounded-sm flex items-center justify-center gap-3 font-bold hover:bg-accent-orange transition-all tracking-[0.2em] text-sm"
+              class="w-full bg-accent-orange hover:bg-accent-orange/90 text-white py-5 rounded-full flex items-center justify-center gap-3 font-bold transition-all duration-300 shadow-xl shadow-accent-orange/20 hover:shadow-accent-orange/40 transform hover:-translate-y-1 active:scale-95 tracking-[0.15em] uppercase text-[0.7rem]"
             >
               <span class="material-icons-outlined text-lg">chat</span>
               CONTACT US

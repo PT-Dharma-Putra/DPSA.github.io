@@ -1,0 +1,110 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+const articles = [
+  {
+    title: "We Are Present at JIFFINA 2026",
+    date: "March 07 - 10, 2026",
+    excerpt:
+      "Sorajati is proud to participate in the Jogja International Furniture & Craft Fair (JIFFINA) 2026. Find us at Jogja Expo Center!",
+    image: "/images/PosterJIFFINA.png",
+    slug: "jiffina-2026",
+    location: "Jogja Expo Center - Booth B-12 A",
+    gmapsUrl: "https://maps.app.goo.gl/bM5X7v8S9vC2", // Placeholder if not provided
+  },
+  {
+    title: "Find Us At IFEX 2026",
+    date: "March 05 - 08, 2026",
+    excerpt:
+      "Dharma Putra Sejahtera Abadi (DPSA) will be participating in the Indonesia International Furniture Expo (IFEX) 2026. Visit our booth at ICE BSD!",
+    image: "/images/PosterIFEX.png",
+    slug: "ifex-2026",
+    location: "ICE BSD - Hall 10, Booth 19",
+    gmapsUrl: "https://maps.app.goo.gl/LCJ1dLg6cN425jit9",
+  },
+];
+---
+
+<Layout title="Articles | Dharma Putra Sejahtera Abadi">
+  <Navbar isSolid={true} />
+
+  <main class="pt-32 pb-24 bg-zinc-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-6">
+      <header class="mb-16 border-b border-zinc-200 pb-12">
+        <span
+          class="text-accent-orange font-bold tracking-[0.3em] uppercase text-xs mb-3 block"
+          >Latest Updates</span
+        >
+        <h1
+          class="font-display text-5xl md:text-6xl font-bold text-secondary mb-6 italic uppercase tracking-tight"
+        >
+          Articles & Events
+        </h1>
+        <p class="text-slate-600 max-w-2xl text-lg font-light leading-relaxed">
+          Stay updated with our latest activities, exhibitions, and industry
+          insights.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {
+          articles.map((article) => (
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-zinc-100 flex flex-col h-full transform hover:-translate-y-2 max-w-sm mx-auto w-full">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div class="absolute top-4 right-4 bg-accent-orange text-white text-[10px] font-bold px-3 py-1.5 rounded-full tracking-widest uppercase shadow-lg">
+                  Event
+                </div>
+              </div>
+
+              <div class="p-8 flex flex-col flex-1">
+                <div class="flex items-center gap-2 text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-4">
+                  <span class="material-icons-outlined text-sm">
+                    calendar_today
+                  </span>
+                  {article.date}
+                </div>
+
+                <h3 class="font-display text-2xl font-bold text-secondary mb-4 group-hover:text-accent-orange transition-colors duration-300">
+                  {article.title}
+                </h3>
+
+                <p class="text-slate-500 text-sm leading-relaxed mb-8 line-clamp-3">
+                  {article.excerpt}
+                </p>
+
+                <div class="mt-auto grid grid-cols-2 gap-4">
+                  <a
+                    href={article.gmapsUrl}
+                    target="_blank"
+                    class="flex items-center justify-center gap-2 py-3 rounded-full border border-zinc-200 text-secondary font-bold text-[10px] uppercase tracking-wider hover:bg-zinc-50 transition-colors"
+                  >
+                    <span class="material-icons-outlined text-sm text-accent-orange">
+                      location_on
+                    </span>
+                    GMAPS
+                  </a>
+                  <a
+                    href={`/articles/${article.slug}`}
+                    class="flex items-center justify-center gap-2 py-3 rounded-full bg-secondary text-white font-bold text-[10px] uppercase tracking-wider hover:bg-accent-orange transition-all duration-300 shadow-lg shadow-secondary/10 hover:shadow-accent-orange/20"
+                  >
+                    Lihat Selengkapnya
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

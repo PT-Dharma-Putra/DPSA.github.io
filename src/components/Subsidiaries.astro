@@ -49,11 +49,14 @@ const scrollItems = [...subsidiaries, ...subsidiaries];
   <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
     <div
       class="inline-block mb-4 px-4 py-1 rounded-full bg-primary/10 text-primary text-[0.7rem] font-bold uppercase tracking-[0.2em]"
+      data-aos="fade-down"
     >
       Our Network
     </div>
     <h2
       class="text-4xl md:text-5xl font-display font-bold text-secondary italic"
+      data-aos="fade-up"
+      data-aos-delay="200"
     >
       Our <span class="text-gradient-primary not-italic">Subsidiaries</span>
     </h2>
@@ -61,6 +64,8 @@ const scrollItems = [...subsidiaries, ...subsidiaries];
 
   <div
     class="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-32 before:bg-gradient-to-r before:from-background-light before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-32 after:bg-gradient-to-l after:from-background-light after:to-transparent"
+    data-aos="fade-in"
+    data-aos-delay="400"
   >
     <div class="flex animate-marquee hover:pause whitespace-nowrap py-10">
       {

@@ -12,7 +12,7 @@ module.exports = {
         "accent-tan": "rgb(var(--color-accent-tan) / <alpha-value>)",
         "accent-orange": "rgb(var(--color-accent-orange) / <alpha-value>)",
         "accent-red": "#E63946",
-        "accent-blue": "#007BFF",
+        "accent-blue": "#1560bd",
       },
       fontFamily: {
         display: ["Playfair Display", "serif"],

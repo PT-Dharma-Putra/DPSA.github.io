@@ -1,39 +1,57 @@
+---
+const { isSolid = false } = Astro.props;
+---
+
 <nav
-  class="fixed top-0 left-0 w-full z-50 bg-background-light/80 backdrop-blur-lg border-b border-primary/10 transition-all duration-300"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-in-out group/nav"
   id="main-nav"
+  data-is-solid={isSolid ? "true" : "false"}
 >
   <div
-    class="max-w-7xl mx-auto px-6 py-1.5 flex justify-between items-center relative z-50"
+    class="max-w-7xl mx-auto px-6 py-5 transition-all duration-500 ease-in-out flex justify-between items-center relative z-50"
+    id="nav-container"
   >
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
       <a
         href="/#home"
-        class="flex items-center group transition-transform duration-300 hover:scale-105"
+        class="flex items-center group transition-transform duration-300 hover:scale-105 active:scale-95"
       >
-        <img
-          src="/images/logo2.png"
-          alt="Dharma Putra Sejahtera Abadi Logo"
-          class="h-12 md:h-14 w-auto object-contain"
-          id="nav-logo"
-        />
+        <!-- Logo Image: Swaps based on scroll state via JS -->
+        <div class="relative h-10 md:h-12 w-auto">
+          <img
+            src="/images/DPSA2.png"
+            alt="Dharma Putra Sejahtera Abadi Logo White"
+            class="relative h-full w-auto object-contain transition-all duration-500 opacity-100 scale-100"
+            id="nav-logo-white"
+          />
+          <img
+            src="/images/DPSA2.png"
+            alt="Dharma Putra Sejahtera Abadi Logo Color"
+            class="absolute top-0 left-0 h-full w-auto object-contain transition-all duration-500 opacity-0 scale-90"
+            id="nav-logo-color"
+          />
+        </div>
         <span
-          class="ml-3 text-xl md:text-2xl font-display font-bold text-secondary tracking-tight"
+          class="ml-3 text-lg md:text-xl font-sans font-bold text-white transition-all duration-500 tracking-tight"
+          id="nav-title"
         >
-          PT <span class="text-accent-blue">DPSA</span>
+          <span class="transition-colors duration-500" id="nav-brand-highlight"
+            >DPSA</span
+          >
         </span>
       </a>
     </div>
 
     <!-- Desktop Menu -->
-    <div class="hidden md:flex items-center gap-8">
+    <div class="hidden md:flex items-center gap-1">
       {
         [
           { href: "/#home", text: "Home" },
           { href: "/#about", text: "About" },
           { href: "/#subsidiaries", text: "Subsidiaries" },
-          // { href: "/#process", text: "Process" },
           { href: "/#projects", text: "Projects" },
-          { href: "/#client", text: "Clients" },
+          { href: "/articles", text: "Article" },
+          // { href: "/#client", text: "Clients" },
           { href: "/careers", text: "Careers" },
           {
             href: "https://www.trackingorderdpsa.xyz/",
@@ -44,33 +62,41 @@
           <a
             href={item.href}
             target={item.external ? "_blank" : undefined}
-            class="relative text-[0.75rem] font-bold text-slate-600 hover:text-primary transition-colors uppercase tracking-[0.1em] group py-2"
+            class="nav-link relative text-[13px] font-bold text-white/90 hover:text-white transition-all duration-300 uppercase tracking-widest px-4 py-2 rounded-full hover:bg-white/10"
           >
             {item.text}
-            <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full" />
+            <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-accent-orange transition-all duration-300 group-hover:w-1/2 opacity-0 group-hover:opacity-100" />
           </a>
         ))
       }
-      <a
-        href="https://wa.me/6281127005688"
-        target="_blank"
-        class="bg-accent-orange text-white text-[0.7rem] font-bold uppercase tracking-widest px-5 py-2 rounded-full hover:bg-accent-orange/90 hover:shadow-lg hover:shadow-accent-orange/20 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95"
-      >
-        Contact Us
-      </a>
+      <div class="ml-4 pl-4 border-l border-white/10" id="nav-divider">
+        <a
+          href="https://wa.me/6281128507788"
+          target="_blank"
+          class="bg-white text-primary-dark text-[11px] font-black uppercase shadow-white/10 tracking-[0.15em] px-7 py-3 rounded-full hover:bg-accent-orange hover:text-white transition-all duration-500 transform hover:-translate-y-1 active:scale-95 shadow-xl inline-block"
+          id="nav-cta"
+        >
+          Contact Us
+        </a>
+      </div>
     </div>
 
     <!-- Mobile Menu Button -->
-    <button id="menu-toggle" class="p-2 text-primary md:hidden group">
-      <div class="w-6 h-5 flex flex-col justify-between items-end">
+    <button
+      id="menu-toggle"
+      class="p-2 text-white md:hidden group transition-all duration-300 hover:bg-white/10 rounded-xl"
+    >
+      <div
+        class="w-6 h-4 flex flex-col justify-between items-end overflow-hidden"
+      >
         <span
-          class="w-full h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-2/3"
+          class="menu-bar w-full h-0.5 bg-current rounded-full transition-all duration-300 group-hover:translate-x-1"
         ></span>
         <span
-          class="w-2/3 h-0.5 bg-primary rounded-full transition-all duration-300"
+          class="menu-bar w-3/4 h-0.5 bg-current rounded-full transition-all duration-300"
         ></span>
         <span
-          class="w-full h-0.5 bg-primary rounded-full transition-all duration-300 group-hover:w-1/2"
+          class="menu-bar w-full h-0.5 bg-current rounded-full transition-all duration-300 group-hover:-translate-x-1"
         ></span>
       </div>
     </button>
@@ -79,64 +105,62 @@
   <!-- Mobile Menu Overlay -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 bg-background-light z-[60] transform translate-x-full opacity-0 invisible transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] md:hidden flex flex-col w-full h-screen"
+    class="fixed inset-0 bg-white/95 backdrop-blur-2xl z-[60] transform translate-y-full opacity-0 invisible transition-all duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] md:hidden flex flex-col w-full h-screen"
   >
     <!-- Mobile Header -->
-    <div
-      class="flex justify-between items-center px-6 py-6 border-b border-primary/10"
-    >
-      <a href="/#home" class="flex items-center">
+    <div class="flex justify-between items-center px-8 py-8">
+      <a href="/#home" class="flex items-center gap-3">
         <img
-          src="/images/logo2.png"
+          src="/images/DPSA2.png"
           alt="Dharma Putra Sejahtera Abadi Logo"
-          class="h-14 w-auto object-contain"
+          class="h-10 w-auto object-contain"
         />
         <span
-          class="ml-3 text-xl md:text-2xl font-display font-bold text-secondary tracking-tight"
+          class="text-xl font-sans font-black text-primary-dark tracking-tighter"
         >
-          PT <span class="text-accent-blue">DPSA</span>
+          DPSA
         </span>
       </a>
       <button
         id="close-menu"
-        class="p-2 text-secondary hover:text-primary transition-colors focus:outline-none"
+        class="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-primary-dark hover:bg-primary-dark hover:text-white transition-all duration-500"
       >
-        <span class="material-icons-outlined text-3xl">close</span>
+        <span class="material-icons-outlined text-2xl">close</span>
       </button>
     </div>
 
     <!-- Mobile Scrollable Content -->
     <div
-      class="flex-1 overflow-y-auto px-8 py-10 flex flex-col justify-between"
+      class="flex-1 overflow-y-auto px-10 py-6 flex flex-col justify-between"
     >
-      <div class="space-y-6">
+      <div class="flex flex-col gap-2">
         {
           [
             { href: "/#home", text: "Home", icon: "home" },
             { href: "/#about", text: "About Us", icon: "info" },
             { href: "/#subsidiaries", text: "Subsidiaries", icon: "business" },
-            // { href: "/#process", text: "Process", icon: "settings" },
             { href: "/#projects", text: "Projects", icon: "work" },
+            { href: "/articles", text: "Article", icon: "article" },
             { href: "/#client", text: "Clients", icon: "group" },
             { href: "/careers", text: "Careers", icon: "person_search" },
             {
               href: "https://www.trackingorderdpsa.xyz/",
               text: "Track Order",
-              icon: "analytics",
+              icon: "location_searching",
               external: true,
             },
           ].map((item, index) => (
             <a
               href={item.href}
               target={item.external ? "_blank" : undefined}
-              class="mobile-link flex items-center justify-between group translate-y-8 opacity-0 transition-all duration-700"
-              style={`transition-delay: ${index * 50}ms;`}
+              class="mobile-link group flex items-center justify-between py-4 border-b border-slate-100 translate-y-10 opacity-0 transition-all duration-700"
+              style={`transition-delay: ${index * 70}ms;`}
             >
-              <span class="text-4xl font-display font-bold text-secondary group-hover:text-primary transition-colors">
+              <span class="text-3xl font-display font-black text-slate-800 group-hover:text-primary transition-colors">
                 {item.text}
               </span>
-              <div class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                <span class="material-icons-outlined text-xl">{item.icon}</span>
+              <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                <span class="material-icons-outlined text-sm">{item.icon}</span>
               </div>
             </a>
           ))
@@ -144,27 +168,32 @@
       </div>
 
       <div
-        class="pb-10 translate-y-8 opacity-0 transition-all duration-700 delay-[500ms]"
+        class="pb-12 translate-y-10 opacity-0 transition-all duration-700 delay-[500ms]"
         id="mobile-footer"
       >
-        <div class="w-full h-px bg-primary/10 mb-8"></div>
-        <div class="flex flex-col gap-4">
-          <p
-            class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold"
-          >
-            Reach Out To Us
-          </p>
+        <div class="flex flex-col gap-6">
+          <div class="space-y-1">
+            <p
+              class="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-black"
+            >
+              Quick Action
+            </p>
+            <div class="h-1 w-8 bg-primary rounded-full"></div>
+          </div>
           <a
-            href="https://wa.me/6281127005688"
+            href="https://wa.me/6281128507788"
             target="_blank"
-            class="flex items-center gap-4 text-secondary font-bold text-xl group hover:text-primary transition-colors"
+            class="flex items-center gap-5 p-5 bg-primary rounded-3xl text-white shadow-2xl shadow-primary/30 group hover:scale-[1.02] transition-transform"
           >
             <div
-              class="w-12 h-12 bg-primary flex items-center justify-center rounded-xl text-white group-hover:scale-110 transition-transform"
+              class="w-14 h-14 bg-white/20 backdrop-blur-md flex items-center justify-center rounded-2xl text-white"
             >
-              <span class="material-icons-outlined">chat</span>
+              <span class="material-icons-outlined text-2xl">chat</span>
             </div>
-            0811-2700-5688
+            <div>
+              <p class="text-xs opacity-70 font-medium">WhatsApp Support</p>
+              <p class="font-black text-lg">0811-2850-7788</p>
+            </div>
           </a>
         </div>
       </div>
@@ -177,37 +206,149 @@
     const mobileMenu = document.getElementById("mobile-menu");
     const mobileLinks = document.querySelectorAll(".mobile-link");
     const mobileFooter = document.getElementById("mobile-footer");
+
+    // Desktop Nav Elements
     const mainNav = document.getElementById("main-nav");
+    const navContainer = document.getElementById("nav-container");
+    const navLogoWhite = document.getElementById("nav-logo-white");
+    const navLogoColor = document.getElementById("nav-logo-color");
+    const navTitle = document.getElementById("nav-title");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const navCta = document.getElementById("nav-cta");
+    const navDivider = document.getElementById("nav-divider");
 
     // Scroll Behavior
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 20) {
-        mainNav?.classList.add("py-0.5", "shadow-md", "bg-background-light/95");
-        mainNav?.classList.remove(
-          "py-1.5",
-          "bg-background-light/80",
-          "border-transparent",
+    const handleScroll = () => {
+      const isSolid = mainNav?.getAttribute("data-is-solid") === "true";
+
+      if (window.scrollY > 80 || isSolid) {
+        // Floating Capsule State
+        mainNav?.classList.add("pt-4");
+        navContainer?.classList.remove("max-w-7xl", "py-5", "px-6");
+        navContainer?.classList.add(
+          "max-w-7xl",
+          "py-3",
+          "px-8",
+          "bg-white/80",
+          "backdrop-blur-xl",
+          "rounded-full",
+          "shadow-[0_20px_50px_rgba(0,0,0,0.1)]",
+          "border",
+          "border-white/40",
         );
-        mainNav?.classList.add("border-primary/10");
+
+        // Logo Switch & Scale
+        navLogoWhite?.classList.remove("opacity-100", "scale-100");
+        navLogoWhite?.classList.add("opacity-0", "scale-90");
+        navLogoColor?.classList.remove("opacity-0", "scale-90");
+        navLogoColor?.classList.add("opacity-100", "scale-100");
+
+        // Text Colors
+        navTitle?.classList.remove("text-white");
+        navTitle?.classList.add("text-primary-dark");
+
+        // Links
+        navLinks.forEach((link) => {
+          link.classList.remove(
+            "text-white/90",
+            "hover:text-white",
+            "hover:bg-white/10",
+          );
+          link.classList.add(
+            "text-slate-600",
+            "hover:text-primary-dark",
+            "hover:bg-slate-100",
+          );
+        });
+
+        // CTA Button
+        navCta?.classList.remove(
+          "bg-white",
+          "text-primary-dark",
+          "shadow-white/10",
+        );
+        navCta?.classList.add(
+          "bg-primary-dark",
+          "text-white",
+          "shadow-primary-dark/20",
+        );
+
+        // Divider
+        navDivider?.classList.remove("border-white/10");
+        navDivider?.classList.add("border-slate-200");
+
+        // Mobile Menu Button
+        menuToggle?.classList.remove("text-white");
+        menuToggle?.classList.add("text-primary-dark", "hover:bg-slate-100");
       } else {
-        mainNav?.classList.remove(
-          "py-0.5",
-          "shadow-md",
-          "bg-background-light/95",
-          "border-primary/10",
+        // Top State (Full transparency)
+        mainNav?.classList.remove("pt-4");
+        navContainer?.classList.add("max-w-7xl", "py-5", "px-6");
+        navContainer?.classList.remove(
+          "max-w-7xl",
+          "py-3",
+          "px-8",
+          "bg-white/80",
+          "backdrop-blur-xl",
+          "rounded-full",
+          "shadow-[0_20px_50px_rgba(0,0,0,0.1)]",
+          "border",
+          "border-white/40",
         );
-        mainNav?.classList.add(
-          "py-1.5",
-          "bg-background-light/80",
-          "border-transparent",
+
+        // Logo Switch & Scale
+        navLogoWhite?.classList.add("opacity-100", "scale-100");
+        navLogoWhite?.classList.remove("opacity-0", "scale-90");
+        navLogoColor?.classList.add("opacity-0", "scale-90");
+        navLogoColor?.classList.remove("opacity-100", "scale-100");
+
+        // Text Colors
+        navTitle?.classList.add("text-white");
+        navTitle?.classList.remove("text-primary-dark");
+
+        // Links
+        navLinks.forEach((link) => {
+          link.classList.add(
+            "text-white/90",
+            "hover:text-white",
+            "hover:bg-white/10",
+          );
+          link.classList.remove(
+            "text-slate-600",
+            "hover:text-primary-dark",
+            "hover:bg-slate-100",
+          );
+        });
+
+        // CTA Button
+        navCta?.classList.add(
+          "bg-white",
+          "text-primary-dark",
+          "shadow-white/10",
         );
+        navCta?.classList.remove(
+          "bg-primary-dark",
+          "text-white",
+          "shadow-primary-dark/20",
+        );
+
+        // Divider
+        navDivider?.classList.add("border-white/10");
+        navDivider?.classList.remove("border-slate-200");
+
+        // Mobile Menu Button
+        menuToggle?.classList.add("text-white");
+        menuToggle?.classList.remove("text-primary-dark", "hover:bg-slate-100");
       }
-    });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
     const toggleMenu = (open: boolean) => {
       if (open) {
         mobileMenu?.classList.remove(
-          "translate-x-full",
+          "translate-y-full",
           "opacity-0",
           "invisible",
         );
@@ -216,21 +357,21 @@
         // Animate items in
         setTimeout(() => {
           mobileLinks.forEach((link) => {
-            link.classList.remove("translate-y-8", "opacity-0");
+            link.classList.remove("translate-y-10", "opacity-0");
           });
-          mobileFooter?.classList.remove("translate-y-8", "opacity-0");
+          mobileFooter?.classList.remove("translate-y-10", "opacity-0");
         }, 100);
       } else {
-        mobileMenu?.classList.add("translate-x-full", "opacity-0");
+        mobileMenu?.classList.add("translate-y-full", "opacity-0");
         document.body.style.overflow = "";
 
         // Reset animation state after transition
         setTimeout(() => {
           mobileMenu?.classList.add("invisible");
           mobileLinks.forEach((link) => {
-            link.classList.add("translate-y-8", "opacity-0");
+            link.classList.add("translate-y-10", "opacity-0");
           });
-          mobileFooter?.classList.add("translate-y-8", "opacity-0");
+          mobileFooter?.classList.add("translate-y-10", "opacity-0");
         }, 700);
       }
     };
