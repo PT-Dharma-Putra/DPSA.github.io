@@ -5,6 +5,28 @@ import Footer from "../../components/Footer.astro";
 
 const articles = [
   {
+    title: "PT DPSA Group Captivates Visitors at JIFFINA 2026",
+    date: "March 2026",
+    excerpt:
+      "PT DPSA Group has successfully participated in the prestigious international furniture exhibition, Jogja International Furniture & Craft Fair Indonesia (JIFFINA) 2026.",
+    image: "/images/article/6j.png",
+    slug: "jiffina-2026-success",
+    location: "JEC - Booth 12-A",
+    gmapsUrl: "https://maps.app.goo.gl/bM5X7v8S9vC2",
+    category: "Article",
+  },
+  {
+    title: "The Success of PT DPSA Group at IFEX 2026",
+    date: "March 2026",
+    excerpt:
+      "PT DPSA Group has successfully concluded its participation in the prestigious international furniture exhibition, the Indonesia International Furniture Expo (IFEX) 2026.",
+    image: "/images/article/6.jpeg",
+    slug: "ifex-2026-success",
+    location: "ICE BSD - Hall 10",
+    gmapsUrl: "https://maps.app.goo.gl/LCJ1dLg6cN425jit9",
+    category: "Article",
+  },
+  {
     title: "We Are Present at JIFFINA 2026",
     date: "March 07 - 10, 2026",
     excerpt:
@@ -13,6 +35,7 @@ const articles = [
     slug: "jiffina-2026",
     location: "Jogja Expo Center - Booth B-12 A",
     gmapsUrl: "https://maps.app.goo.gl/bM5X7v8S9vC2", // Placeholder if not provided
+    category: "Event",
   },
   {
     title: "Find Us At IFEX 2026",
@@ -23,6 +46,7 @@ const articles = [
     slug: "ifex-2026",
     location: "ICE BSD - Hall 10, Booth 19",
     gmapsUrl: "https://maps.app.goo.gl/LCJ1dLg6cN425jit9",
+    category: "Event",
   },
 ];
 ---
@@ -59,8 +83,8 @@ const articles = [
                   class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div class="absolute top-4 right-4 bg-accent-orange text-white text-[10px] font-bold px-3 py-1.5 rounded-full tracking-widest uppercase shadow-lg">
-                  Event
+                <div class={`absolute top-4 right-4 ${article.category === 'Event' ? 'bg-accent-orange' : 'bg-secondary'} text-white text-[10px] font-bold px-3 py-1.5 rounded-full tracking-widest uppercase shadow-lg`}>
+                  {article.category}
                 </div>
               </div>
 
