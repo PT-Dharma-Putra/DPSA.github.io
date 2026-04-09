@@ -20,7 +20,7 @@ const articles = [
     date: "March 2026",
     excerpt:
       "PT DPSA Group has successfully concluded its participation in the prestigious international furniture exhibition, the Indonesia International Furniture Expo (IFEX) 2026.",
-    image: "/images/article/6.jpeg",
+    image: "/images/article/revisi 1.png",
     slug: "ifex-2026-success",
     location: "ICE BSD - Hall 10",
     gmapsUrl: "https://maps.app.goo.gl/LCJ1dLg6cN425jit9",
@@ -83,7 +83,9 @@ const articles = [
                   class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div class={`absolute top-4 right-4 ${article.category === 'Event' ? 'bg-accent-orange' : 'bg-secondary'} text-white text-[10px] font-bold px-3 py-1.5 rounded-full tracking-widest uppercase shadow-lg`}>
+                <div
+                  class={`absolute top-4 right-4 ${article.category === "Event" ? "bg-accent-orange" : "bg-secondary"} text-white text-[10px] font-bold px-3 py-1.5 rounded-full tracking-widest uppercase shadow-lg`}
+                >
                   {article.category}
                 </div>
               </div>
