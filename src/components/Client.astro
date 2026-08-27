@@ -1,6 +1,7 @@
 ---
 const subsidiaries = [
   { name: "Aston Kemayoran", logo: "/images/client/Aston Kemayoran.png" },
+  { name: "Bali International Hospital", logo: "/images/client/Bali International.png" },
   { name: "Hamori", logo: "/images/client/Hamori.png" },
   { name: "Hazna Medika", logo: "/images/client/Hazna Medika.png" },
   { name: "Hermina", logo: "/images/client/Hermina.png" },
@@ -11,6 +12,7 @@ const subsidiaries = [
   { name: "Punika Deli", logo: "/images/client/Punika Deli.png" },
   { name: "Royal Ambarukmo", logo: "/images/client/Royal Ambarukmo.png" },
   { name: "RS JIH", logo: "/images/client/RS JIH.png" },
+  { name: "RS Nusantara", logo: "/images/client/RS Nusantara.png" },
   { name: "RS Panti Rapih", logo: "/images/client/RS Panti Rapih.png" },
   { name: "RS Provita", logo: "/images/client/RS Provita.png" },
   { name: "RS Ubaya", logo: "/images/client/RS Ubaya.png" },
@@ -45,11 +47,11 @@ const scrollItems = [...subsidiaries, ...subsidiaries];
     <div class="flex animate-marquee hover:pause whitespace-nowrap py-12">
       {
         scrollItems.map((item) => (
-          <div class="flex-shrink-0 mx-10 md:mx-16 lg:mx-20 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110">
+          <div class="flex-shrink-0 w-36 h-16 md:w-44 md:h-20 lg:w-48 lg:h-24 mx-6 md:mx-8 lg:mx-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110">
             <img
               src={item.logo}
               alt={item.name}
-              class="h-16 md:h-24 lg:h-28 w-auto object-contain filter drop-shadow-sm"
+              class="max-h-full max-w-full object-contain filter drop-shadow-sm"
               loading="lazy"
             />
           </div>
