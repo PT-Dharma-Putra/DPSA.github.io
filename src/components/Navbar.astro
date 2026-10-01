@@ -69,7 +69,30 @@ const { isSolid = false } = Astro.props;
           </a>
         ))
       }
-      <div class="ml-4 pl-4 border-l border-white/10" id="nav-divider">
+      <div class="ml-4 pl-4 border-l border-white/10 flex items-center gap-3" id="nav-divider">
+        <!-- Language Switcher Capsule -->
+        <div
+          class="flex items-center p-0.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-500"
+          id="nav-lang-switcher"
+        >
+          <button
+            type="button"
+            data-lang-btn="en"
+            class="lang-btn px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-full transition-all duration-300"
+            title="English"
+          >
+            EN
+          </button>
+          <button
+            type="button"
+            data-lang-btn="id"
+            class="lang-btn px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-full transition-all duration-300"
+            title="Bahasa Indonesia"
+          >
+            ID
+          </button>
+        </div>
+
         <a
           href="https://wa.me/6281128507788"
           target="_blank"
@@ -121,12 +144,36 @@ const { isSolid = false } = Astro.props;
           DPSA
         </span>
       </a>
-      <button
-        id="close-menu"
-        class="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-primary-dark hover:bg-primary-dark hover:text-white transition-all duration-500"
-      >
-        <span class="material-icons-outlined text-2xl">close</span>
-      </button>
+      <div class="flex items-center gap-3">
+        <!-- Mobile Language Switcher Capsule -->
+        <div
+          class="flex items-center p-1 rounded-full border border-slate-200 bg-slate-100"
+          id="mobile-lang-switcher"
+        >
+          <button
+            type="button"
+            data-lang-btn="en"
+            class="lang-btn px-3 py-1 text-xs font-bold tracking-wider rounded-full transition-all duration-300"
+            title="English"
+          >
+            EN
+          </button>
+          <button
+            type="button"
+            data-lang-btn="id"
+            class="lang-btn px-3 py-1 text-xs font-bold tracking-wider rounded-full transition-all duration-300"
+            title="Bahasa Indonesia"
+          >
+            ID
+          </button>
+        </div>
+        <button
+          id="close-menu"
+          class="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-primary-dark hover:bg-primary-dark hover:text-white transition-all duration-500"
+        >
+          <span class="material-icons-outlined text-2xl">close</span>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Scrollable Content -->
@@ -216,10 +263,70 @@ const { isSolid = false } = Astro.props;
     const navLinks = document.querySelectorAll(".nav-link");
     const navCta = document.getElementById("nav-cta");
     const navDivider = document.getElementById("nav-divider");
+    const navLangSwitcher = document.getElementById("nav-lang-switcher");
+
+    // Dynamic Language Switcher Styling
+    // @ts-ignore
+    window.updateNavLanguageStyles = () => {
+      const isSolid = mainNav?.getAttribute("data-is-solid") === "true";
+      const isScrolled = window.scrollY > 80 || isSolid;
+      let currentLang = "en";
+      try {
+        currentLang = localStorage.getItem("preferred_lang") || "en";
+      } catch (e) {}
+
+      // Desktop Switcher Capsule
+      if (isScrolled) {
+        navLangSwitcher?.classList.remove("border-white/20", "bg-white/10");
+        navLangSwitcher?.classList.add("border-slate-200", "bg-slate-100");
+      } else {
+        navLangSwitcher?.classList.remove("border-slate-200", "bg-slate-100");
+        navLangSwitcher?.classList.add("border-white/20", "bg-white/10");
+      }
+
+      // Desktop Buttons
+      const desktopBtns = navLangSwitcher?.querySelectorAll("[data-lang-btn]");
+      desktopBtns?.forEach((btn) => {
+        const btnLang = btn.getAttribute("data-lang-btn");
+        const isActive = btnLang === currentLang;
+
+        btn.className = "lang-btn px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-full transition-all duration-300";
+
+        if (isActive) {
+          if (isScrolled) {
+            btn.classList.add("bg-primary-dark", "text-white", "shadow-sm");
+          } else {
+            btn.classList.add("bg-white", "text-primary-dark", "shadow-sm");
+          }
+        } else {
+          if (isScrolled) {
+            btn.classList.add("text-slate-600", "hover:text-primary-dark");
+          } else {
+            btn.classList.add("text-white/80", "hover:text-white");
+          }
+        }
+      });
+
+      // Mobile Buttons
+      const mobileBtns = document.getElementById("mobile-lang-switcher")?.querySelectorAll("[data-lang-btn]");
+      mobileBtns?.forEach((btn) => {
+        const btnLang = btn.getAttribute("data-lang-btn");
+        const isActive = btnLang === currentLang;
+        btn.className = "lang-btn px-3 py-1 text-xs font-bold tracking-wider rounded-full transition-all duration-300";
+        if (isActive) {
+          btn.classList.add("bg-primary-dark", "text-white", "shadow-sm");
+        } else {
+          btn.classList.add("text-slate-600", "hover:text-primary-dark");
+        }
+      });
+    };
 
     // Scroll Behavior
     const handleScroll = () => {
       const isSolid = mainNav?.getAttribute("data-is-solid") === "true";
+
+      // @ts-ignore
+      window.updateNavLanguageStyles?.();
 
       if (window.scrollY > 80 || isSolid) {
         // Floating Capsule State
@@ -343,6 +450,10 @@ const { isSolid = false } = Astro.props;
     };
 
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("languageChanged", () => {
+      // @ts-ignore
+      window.updateNavLanguageStyles?.();
+    });
     handleScroll();
 
     const toggleMenu = (open: boolean) => {

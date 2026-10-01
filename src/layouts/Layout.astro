@@ -21,6 +21,13 @@ import "../styles/global.css";
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Language setup -->
+    <script is:inline>
+      try {
+        const savedLang = localStorage.getItem("preferred_lang") || "en";
+        document.documentElement.lang = savedLang;
+      } catch (e) {}
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WMG9VV64L"></script>
     <script is:inline>
@@ -38,6 +45,13 @@ import "../styles/global.css";
     <script>
       import AOS from "aos";
       import Lenis from "lenis";
+      import { initLanguageSystem } from "../utils/translations.js";
+
+      // Initialize Language System
+      initLanguageSystem();
+      document.addEventListener("astro:page-load", () => {
+        initLanguageSystem();
+      });
 
       // Initialize AOS
       AOS.init({
