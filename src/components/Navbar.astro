@@ -54,7 +54,7 @@ const { isSolid = false } = Astro.props;
           // { href: "/#client", text: "Clients" },
           { href: "/careers", text: "Careers" },
           {
-            href: "https://www.trackingorderdpsa.xyz/",
+            href: "https://www.trackingorderdpsa.com/",
             text: "Track Order",
             external: true,
           },
@@ -69,7 +69,10 @@ const { isSolid = false } = Astro.props;
           </a>
         ))
       }
-      <div class="ml-4 pl-4 border-l border-white/10 flex items-center gap-3" id="nav-divider">
+      <div
+        class="ml-4 pl-4 border-l border-white/10 flex items-center gap-3"
+        id="nav-divider"
+      >
         <!-- Language Switcher Capsule -->
         <div
           class="flex items-center p-0.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md transition-all duration-500"
@@ -191,7 +194,7 @@ const { isSolid = false } = Astro.props;
             { href: "/#client", text: "Clients", icon: "group" },
             { href: "/careers", text: "Careers", icon: "person_search" },
             {
-              href: "https://www.trackingorderdpsa.xyz/",
+              href: "https://www.trackingorderdpsa.com/",
               text: "Track Order",
               icon: "location_searching",
               external: true,
@@ -290,7 +293,8 @@ const { isSolid = false } = Astro.props;
         const btnLang = btn.getAttribute("data-lang-btn");
         const isActive = btnLang === currentLang;
 
-        btn.className = "lang-btn px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-full transition-all duration-300";
+        btn.className =
+          "lang-btn px-2.5 py-1 text-[11px] font-bold tracking-wider rounded-full transition-all duration-300";
 
         if (isActive) {
           if (isScrolled) {
@@ -308,11 +312,14 @@ const { isSolid = false } = Astro.props;
       });
 
       // Mobile Buttons
-      const mobileBtns = document.getElementById("mobile-lang-switcher")?.querySelectorAll("[data-lang-btn]");
+      const mobileBtns = document
+        .getElementById("mobile-lang-switcher")
+        ?.querySelectorAll("[data-lang-btn]");
       mobileBtns?.forEach((btn) => {
         const btnLang = btn.getAttribute("data-lang-btn");
         const isActive = btnLang === currentLang;
-        btn.className = "lang-btn px-3 py-1 text-xs font-bold tracking-wider rounded-full transition-all duration-300";
+        btn.className =
+          "lang-btn px-3 py-1 text-xs font-bold tracking-wider rounded-full transition-all duration-300";
         if (isActive) {
           btn.classList.add("bg-primary-dark", "text-white", "shadow-sm");
         } else {
